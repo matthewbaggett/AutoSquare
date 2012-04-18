@@ -1,0 +1,34 @@
+<!-- sidebar -->
+<div id="sidebar">
+	<?php if(isset($this->arr_sidemenus)):?>
+		<?php foreach((array) $this->arr_sidemenus as $obj_sidemenu):?>
+			<div class="sidemenu">
+				<?php if(isset($obj_sidemenu->title)):?>
+					<h3><?=$obj_sidemenu->title?></h3>
+				<?php endif;?>
+				<?php if(isset($obj_sidemenu->links)):?>
+					<ul>
+					<?php foreach($obj_sidemenu->links as $label => $link):?>
+						<li>
+							<a href="<?=$link?>"><?=$label?></a>
+						</li>
+					<?php endforeach;?>
+					</ul>
+				<?php endif;?>
+			</div>
+		<?php endforeach;?>
+	<?php endif;?>
+	
+	<!-- <h3>Image Gallery</h3>
+	
+	<p class="thumbs">
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+		<a href="/"><img src="<?=$this->baseUrl()?>/images/thumb.jpg" width="40" height="40" alt="thumbnail" /></a>
+	</p> -->
+<!-- /sidebar --></div>

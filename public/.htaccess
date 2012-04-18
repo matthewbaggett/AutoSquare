@@ -1,0 +1,13 @@
+
+RewriteEngine On
+
+RedirectMatch 301 /Images/Search/(.*) http://www.bunnehbutt.com/Search/index/tags/$1
+RedirectMatch 301 /Image/Search/(.*) http://www.bunnehbutt.com/Search/index/tags/$1
+RedirectMatch 301 /Images/View/(.*) http://www.bunnehbutt.com/View/Image/id/$1
+RedirectMatch 301 /Image/View/(.*) http://www.bunnehbutt.com/View/Image/id/$1
+
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
