@@ -1,18 +1,3 @@
-<div id="header"><a name="top"></a>
 
-<h1 id="logo-text"><a href="/" title=""><?php echo $this->escape(Zend_Registry::get('config')->site->name); ?></a></h1>
-<p id="slogan"><?php echo $this->loggedInAs(); ?></p>
 
 <?php include("layout.navigation.phtml")?>
-
-<p id="rss-feed"><a href="/" class="feed">Grab the RSS feed</a></p>
-
-<form id="quick-search" action="/Search/" method="get">
-	<p>
-		<label for="qsearch">Search:</label> 
-		<input class="tbox" id="qsearch" type="text" name="tags" title="Start typing and hit ENTER" placeholder="Search..."/> 
-		<input class="btn" alt="Search" type="image" title="Search" src="<?=$this->baseUrl()?>/images/search.png" />
-	</p>
-</form>
-
-<!-- /header --></div>

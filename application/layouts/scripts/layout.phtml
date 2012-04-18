@@ -1,14 +1,18 @@
 <?php
 $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 $this->headTitle()->setSeparator(' - ');
-$this->headTitle('Bunnehbutt');
+$this->headTitle('AutoSquare');
 echo $this->doctype(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <?php
 // Add stylesheets to view
-$this->headLink()->appendStylesheet($this->baseUrl().'/css/screen.css','screen');
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/bootstrap.css','screen');
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/bootstrap-responsive.css','screen');
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/docs.css','screen');
+$this->headLink()->appendStylesheet($this->baseUrl().'/css/assets/js/google-code-prettify/prettify.css','screen');
 $this->headLink()->appendStylesheet($this->baseUrl().'/css/ie6.css','screen','IE 6');
+
 
 // Add scripts to view
 $this->headScript()->appendFile($this->baseUrl()."/js/jquery-1.6.4.min.js");
@@ -38,28 +42,13 @@ array_push($arr_body_classes, $str_module);
 <link rel="shortcut icon" href="/favicon.ico" />
 <meta name='viewport' content='width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no' />
 </head>
-<body class="<?php echo implode(" ",$arr_body_classes);?>">
-
+ <body data-spy="scroll" data-target=".subnav" data-offset="50">
 <!-- wrap -->
 <div id="wrap"><!-- header -->
 	<?php include("layout.header.phtml")?>
-	<?php if($this->featured == true):?>
-	<?php include("layout.featured.phtml")?>
-	<?php endif;?>
-	<!-- content -->
-	<div id="content-wrap" class="clear">
-		<div id="content"><!-- main -->
-			<div id="main" class="<?=$this->nosidebar?'nosidebar':'sidebar'?>">
+		
 			<?php echo $this->layout()->content; ?>	
-			<div class="fix"></div>
-		<!-- /main --></div>
-		<?php if($this->nosidebar):?>
-		<?php else:?>
-			<?php include("layout.sidebar.phtml")?>
-		<?php endif;?>
-		<!-- /content --></div>
-	<!-- /content-wrap --></div>
-<!-- /wrap --></div>
+			
 
 <?php include("layout.footer.phtml")?>
 

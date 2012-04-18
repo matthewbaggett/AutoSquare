@@ -1,17 +1,33 @@
-<div id="nav">
-	<ul>
-		<li id="current"><a href="/">Home</a></li>
-		<?php if(!Zend_Auth::getInstance()->hasIdentity()):?>
-		<li><a href="<?=$this->url(array('controller' => 'Login', 'action' => 'index'),null,true);?>">Login</a></li>
-		<li><a href="<?=$this->url(array('controller' => 'Login', 'action' => 'register'),null,true);?>">Register</a></li>
-		<?php else:?>
-		<li><a href="<?=$this->url(array('controller' => 'Login', 'action' => 'logout'),null,true);?>">Logout</a></li>
-		<li><a href="<?=$this->url(array('controller' => 'Search', 'action' => 'my-favourites'),null,true);?>">My Favourites</a></li>
-		<!-- <li><a href="<?=$this->url(array('controller' => 'Settings', 'action' => 'index'),null,true);?>">Settings</a></li>-->
-		<?php endif;?>
-		<!-- <li><a href="<?=$this->url(array('controller' => 'Tags', 'action' => 'index'),null,true);?>">Tags</a></li>-->
-		<li><a href="<?=$this->url(array('controller' => 'Search', 'action' => 'latest'),null,true);?>">Latest</a></li>
-		<li><a href="<?=$this->url(array('controller' => 'Search', 'action' => 'favourited'),null,true);?>">Most Favourited</a></li>
-		<li><a href="<?=$this->url(array('controller' => 'Search', 'action' => 'popular'),null,true);?>">Most Popular</a></li>
-	</ul>
-</div>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">AutoSquare</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active">
+                <a href="/">Home</a>
+              </li>
+              <?php if(Zend_Auth::getInstance()->hasIdentity()):?>
+              <li class="">
+                <a href="/Login/Logout">Logout, <?=Zend_Auth::getInstance()->getIdentity()->strNickname?></a>
+              </li>
+              <li class="">
+                <a href="/Me">My Account</a>
+              </li>
+              <?php else:?>
+              <li class="">
+                <a href="/Login">Login</a>
+              </li>
+              <?php endif;?>
+              
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>

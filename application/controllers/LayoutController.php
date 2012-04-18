@@ -6,8 +6,8 @@ class LayoutController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
-    	$arr_sitemap_nodes_main = CMS_Model_CMSSitemap::getSitemapByHandle('MAIN')->getSitemapNodes(6);
-    	
+    	//$arr_sitemap_nodes_main = CMS_Model_CMSSitemap::getSitemapByHandle('MAIN')->getSitemapNodes(6);
+    	$arr_sitemap_nodes_main = array();
     	$this->view->assign('arr_sitemap_nodes_main',$arr_sitemap_nodes_main);
     }
 
