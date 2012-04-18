@@ -10,7 +10,7 @@ class MeController extends Zend_Controller_Action
 		$oauthOptions = array(
 		    'requestScheme'        => Zend_Oauth::REQUEST_SCHEME_HEADER,
 		    'version'              => '1.0',
-		    'consumerKey'          => 'autosquare.turbocrms.com',
+		    'consumerKey'          => '120853944602-j79u0cinskab6ile6gvoin71pc3b9d5i.apps.googleusercontent.com',
 		    'consumerSecret'       => 'Eme_vSHbukhyu-LNNrnvFgnZ',
 		    'signatureMethod'      => 'HMAC-SHA1',
 		    'requestTokenUrl'      => 'https://www.google.com/accounts/OAuthGetRequestToken',
