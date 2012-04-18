@@ -7,31 +7,43 @@ class MeController extends Zend_Controller_Action
 	}
 	
 	public function addlatitudeAction(){
-		$my_latitude = 'https://www.googleapis.com/auth/latitude.all.best';
+		$oauthOptions = array(
+		    'requestScheme'        => Zend_Oauth::REQUEST_SCHEME_HEADER,
+		    'version'              => '1.0',
+		    'consumerKey'          => 'autosquare.turbocrms.com',
+		    'consumerSecret'       => 'Eme_vSHbukhyu-LNNrnvFgnZ',
+		    'signatureMethod'      => 'HMAC-SHA1',
+		    'requestTokenUrl'      => 'https://www.google.com/accounts/OAuthGetRequestToken',
+		    'userAuthorizationUrl' => 'https://www.google.com/latitude/apps/OAuthAuthorizeToken',
+		    'accessTokenUrl'       => 'https://www.google.com/accounts/OAuthGetAccessToken',
+		    'callbackUrl'          => 'http://autosquare.turbocrms.com:8080/Me/AddLatitude/?show=callback',
+		);
+		$consumer = new Zend_Oauth_Consumer($oauthOptions); 
+		if (!isset($_SESSION['ACCESS_TOKEN_GOOGLE'])) { 
+		    if (!empty($_GET)) { 
+		        $token = $consumer->getAccessToken($_GET, unserialize($_SESSION['REQUEST_TOKEN_GOOGLE'])); 
+		        $_SESSION['ACCESS_TOKEN_GOOGLE'] = serialize($token); 
+		    } else { 
+		        $token = $consumer->getRequestToken(array('scope'=>'https://www.googleapis.com/auth/latitude')); 
+		        $_SESSION['REQUEST_TOKEN_GOOGLE'] = serialize($token); 
+		        $customparams = array('domain' => 'autosquare.turbocrms.com', 'granularity' => 'best', 'location' => 'current');
+		        $consumer->redirect($customparams ); 
+		        exit; 
+		    } 
+		} else { 
+		    $token = unserialize($_SESSION['ACCESS_TOKEN_GOOGLE']); 
+		    //$_SESSION['ACCESS_TOKEN_GOOGLE'] = null; // do not use, we want to keep the access token
+		} 
+		$client = $token->getHttpClient($oauthOptions); 
+		$client->setUri('https://www.googleapis.com/latitude/v1/currentLocation'); 
+		$client->setMethod(Zend_Http_Client::GET); 
 		
-		if (!isset($_SESSION['cal_token'])) {
-			if (isset($_GET['token'])) {
-				// You can convert the single-use token to a session token.
-				$session_token =
-				Zend_Gdata_AuthSub::getAuthSubSessionToken($_GET['token']);
-				// Store the session token in our session.
-				$_SESSION['cal_token'] = $session_token;
-			} else {
-				// Display link to generate single-use token
-				$googleUri = Zend_Gdata_AuthSub::getAuthSubTokenUri(
-						'http://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
-						$my_latitude, 0, 1);
-				echo "Click <a href='$googleUri'>here</a> " .
-				"to authorize this application.";
-				exit();
-			}
-		}
 		
-		// Create an authenticated HTTP Client to talk to Google.
-		$client = Zend_Gdata_AuthSub::getHttpClient($_SESSION['cal_token']);
-		
-		// Create a Gdata object using the authenticated Http Client
-		$cal = new Zend_Gdata_Calendar($client);
+		$response = $client->request(); 
+		$body = $response->getBody();
+		header('Content-Type: ' . $response->getHeader('Content-Type')); 
+		echo $response->getBody(); 
+			
 	}
    
 }
