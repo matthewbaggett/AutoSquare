@@ -28,6 +28,7 @@ class MeController extends Zend_Controller_Action
 		        $_SESSION['REQUEST_TOKEN_GOOGLE'] = serialize($token); 
 		        $customparams = array('domain' => 'autosquare.turbocrms.com', 'granularity' => 'best', 'location' => 'current');
 		        $consumer->redirect($customparams ); 
+		        
 		        exit; 
 		    } 
 		} else { 
