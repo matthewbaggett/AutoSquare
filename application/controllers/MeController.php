@@ -13,7 +13,8 @@ class MeController extends Zend_Controller_Action
 		// Multi-scoped token.
 		$SCOPES = array(
 		  'https://docs.google.com/feeds/',
-		  'https://spreadsheets.google.com/feeds/'
+		  'https://www.googleapis.com/auth/latitude.all.best',
+		  'https://www.googleapis.com/auth/latitude.current.best'
 		);
 		
 		$oauthOptions = array(
