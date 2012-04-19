@@ -17,7 +17,7 @@ class MeController extends Zend_Controller_Action
 		// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
 		$client->setClientId('120853944602-j79u0cinskab6ile6gvoin71pc3b9d5i.apps.googleusercontent.com');
 		$client->setClientSecret('Eme_vSHbukhyu-LNNrnvFgnZ');
-		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/oauth2callback');
+		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/Me/AddLatitude');
 		$client->setApplicationName("AutoSquare");
 		$service = new apiLatitudeService($client);
 		
