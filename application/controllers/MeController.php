@@ -36,6 +36,8 @@ class MeController extends Zend_Controller_Action
 		if (!isset($_SESSION['ACCESS_TOKEN'])) {
 		  $_SESSION['REQUEST_TOKEN'] = serialize($consumer->getRequestToken(array('scope' => implode(' ', $SCOPES))));
 		}
+		// If on a Google Apps domain, use your domain for the hd param (e.g. 'example.com').
+		$consumer->redirect(array('hd' => 'default'));
 	}
    
 }
