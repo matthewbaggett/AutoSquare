@@ -5,6 +5,9 @@ class MeController extends Zend_Controller_Action
 	public function indexAction(){
 		
 	}
+	public function showsessionAction(){
+		print_r($_SESSION);
+	}
 	
 	public function addlatitudeAction(){
 		
