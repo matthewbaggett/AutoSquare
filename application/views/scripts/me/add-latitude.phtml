@@ -1,0 +1,23 @@
+
+<header><h1>Google Latitude Sample App</h1></header>
+<div class="box">
+<?php if(isset($this->currentLocation)): ?>
+<div class="currentLocation">
+<pre><?php var_dump($this->currentLocation); ?></pre>
+</div>
+<?php endif ?>
+
+<?php if (isset($this->location)): ?>
+<div class="location">
+<pre><?php var_dump($this->location); ?></pre>
+</div>
+<?php endif ?>
+
+<?php
+if(isset($this->authUrl)) {
+print "<a class='login' href='$this->authUrl'>Connect Me!</a>";
+} else {
+print "<a class='logout' href='?logout'>Logout</a>";
+}
+?>
+</div>
