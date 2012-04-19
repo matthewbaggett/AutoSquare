@@ -7,42 +7,48 @@ class MeController extends Zend_Controller_Action
 	}
 	
 	public function addlatitudeAction(){
-		$CONSUMER_KEY = '120853944602-j79u0cinskab6ile6gvoin71pc3b9d5i.apps.googleusercontent.com';
-		$CONSUMER_SECRET = 'Eme_vSHbukhyu-LNNrnvFgnZ';
 		
-		// Multi-scoped token.
-		$SCOPES = array(
-		  'https://docs.google.com/feeds/',
-		  'https://www.googleapis.com/auth/latitude.all.best',
-		  'https://www.googleapis.com/auth/latitude.current.best'
-		);
 		
-		$oauthOptions = array(
-		  'requestScheme' => Zend_Oauth::REQUEST_SCHEME_HEADER,
-		  'version' => '1.0',
-		  'consumerKey' => $CONSUMER_KEY,
-		  'consumerSecret' => $CONSUMER_SECRET,
-		  'signatureMethod' => 'HMAC-SHA1',
-		  'callbackUrl' => 'http://autosquare.turbocrms.com/Me/AddLatitudeTokenRecieve',
-		  'requestTokenUrl' => 'https://www.google.com/accounts/OAuthGetRequestToken',
-		  'userAuthorizationUrl' => 'https://www.google.com/accounts/OAuthAuthorizeToken',
-		  'accessTokenUrl' => 'https://www.google.com/accounts/OAuthGetAccessToken'
-		);
+		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/apiClient.php';
+		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/contrib/apiLatitudeService.php';
 		
-		$consumer = new Zend_Oauth_Consumer($oauthOptions);
+		$client = new apiClient();
+		// Visit https://code.google.com/apis/console to generate your
+		// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
+		$client->setClientId('120853944602-j79u0cinskab6ile6gvoin71pc3b9d5i.apps.googleusercontent.com');
+		$client->setClientSecret('Eme_vSHbukhyu-LNNrnvFgnZ');
+		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/oauth2callback');
+		$client->setApplicationName("AutoSquare");
+		$service = new apiLatitudeService($client);
 		
-		// When using HMAC-SHA1, you need to persist the request token in some way.
-		// This is because you'll need the request token's token secret when upgrading
-		// to an access token later on. The example below saves the token object as a session variable.
-		if (!isset($_SESSION['ACCESS_TOKEN'])) {
-		  $_SESSION['REQUEST_TOKEN'] = serialize($consumer->getRequestToken(array('scope' => implode(' ', $SCOPES))));
+		if (isset($_REQUEST['logout'])) {
+			unset($_SESSION['access_token']);
 		}
-		// If on a Google Apps domain, use your domain for the hd param (e.g. 'example.com').
-		$consumer->redirect(array('hd' => 'default'));
-	}
-	
-	public function addlatitudetokenrecieveAction(){
-		print_r($_REQUEST);exit;
+		
+		if (isset($_GET['code'])) {
+			$client->authenticate();
+			$_SESSION['access_token'] = $client->getAccessToken();
+			$redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+			header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
+		}
+		
+		if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
+			$client->setAccessToken($_SESSION['access_token']);
+		} else {
+			$authUrl = $client->createAuthUrl();
+		}
+		
+		if ($client->getAccessToken()) {
+			// Start to make API requests.
+			//$location = $service->location->listLocation();
+			$currentLocation = $service->currentLocation->get();
+			$_SESSION['access_token'] = $client->getAccessToken();
+		}
+
+		$this->view->assign('currentLocation', $currentLocation);
+		$this->view->assign('location', $location);
+		$this->view->assign('authUrl', $authUrl);
+			
 	}
    
 }
