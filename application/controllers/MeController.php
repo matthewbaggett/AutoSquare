@@ -22,7 +22,7 @@ class MeController extends Zend_Controller_Action
 		  'consumerKey' => $CONSUMER_KEY,
 		  'consumerSecret' => $CONSUMER_SECRET,
 		  'signatureMethod' => 'HMAC-SHA1',
-		  'callbackUrl' => 'http://myapp.example.com/access_token.php',
+		  'callbackUrl' => 'http://autosquare.turbocrms.com/Me/AddLatitudeTokenRecieve',
 		  'requestTokenUrl' => 'https://www.google.com/accounts/OAuthGetRequestToken',
 		  'userAuthorizationUrl' => 'https://www.google.com/accounts/OAuthAuthorizeToken',
 		  'accessTokenUrl' => 'https://www.google.com/accounts/OAuthGetAccessToken'
@@ -38,6 +38,10 @@ class MeController extends Zend_Controller_Action
 		}
 		// If on a Google Apps domain, use your domain for the hd param (e.g. 'example.com').
 		$consumer->redirect(array('hd' => 'default'));
+	}
+	
+	public function addlatitudetokenrecieveAction(){
+		print_r($_REQUEST);exit;
 	}
    
 }
