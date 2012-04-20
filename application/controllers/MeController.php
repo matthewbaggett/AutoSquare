@@ -18,10 +18,10 @@ class MeController extends Zend_Controller_Action
 		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/Me/AddLatitude');
 		$client->setApplicationName("AutoSquare");
 		
-		$oToken = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
-		print_r($oToken);
-		exit;
-		$client->setAccessToken();
+		if(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")){
+			$token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")->access_token;
+			$client->setAccessToken($token);
+		}
 		$service = new apiLatitudeService($client);
 		
 		return array($service,client);
