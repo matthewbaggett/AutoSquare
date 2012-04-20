@@ -19,7 +19,7 @@ class MeController extends Zend_Controller_Action
 		$client->setApplicationName("AutoSquare");
 		
 		if(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")){
-			$token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")->access_token;
+			$token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
 			$client->setAccessToken($token);
 		}
 		$service = new apiLatitudeService($client);
