@@ -17,6 +17,11 @@ class MeController extends Zend_Controller_Action
 		$client->setClientSecret('Eme_vSHbukhyu-LNNrnvFgnZ');
 		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/Me/AddLatitude');
 		$client->setApplicationName("AutoSquare");
+		
+		$oToken = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
+		print_r($oToken);
+		exit;
+		$client->setAccessToken()
 		$service = new apiLatitudeService($client);
 		
 		return array($service,client);
@@ -31,7 +36,7 @@ class MeController extends Zend_Controller_Action
 	
 	public function latitudegetlocationAction(){
 		list($service, $client) = $this->_set_up_google_api();
-		
+		$currentLocation = $service->currentLocation->get();
 		
 	}
 	
