@@ -2,19 +2,13 @@
 
 class MeController extends Zend_Controller_Action
 {
-	public function indexAction(){
-		
-	}
-	public function showsessionAction(){
-		$google_latitude_access_token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
-		$this->view->assign("google_latitude_access_token",$google_latitude_access_token);
-	}
-	
-	public function addlatitudeAction(){
-		
-		
+	private function _include_google_api(){
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/apiClient.php';
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/contrib/apiLatitudeService.php';
+	}
+	private function _set_up_google_api(){
+		$this->_include_google_api();
+		$this->_include_google_api();
 		
 		$client = new apiClient();
 		// Visit https://code.google.com/apis/console to generate your
@@ -25,15 +19,29 @@ class MeController extends Zend_Controller_Action
 		$client->setApplicationName("AutoSquare");
 		$service = new apiLatitudeService($client);
 		
-		if (isset($_REQUEST['logout'])) {
-			unset($_SESSION['access_token']);
-		}
+		return array($service,client);
+	}
+	public function indexAction(){
+		
+	}
+	public function showsessionAction(){
+		$google_latitude_access_token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
+		$this->view->assign("google_latitude_access_token",$google_latitude_access_token);
+	}
+	
+	public function latitudegetlocationAction(){
+		list($service, $client) = $this->_set_up_google_api();
+		
+		
+	}
+	
+	public function addlatitudeAction(){
+		list($service, $client) = $this->_set_up_google_api();
 		
 		if (isset($_GET['code'])) {
 			$client->authenticate();
 			$_SESSION['access_token'] = $client->getAccessToken();
 			$redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-			//header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
 		}
 		
 		if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
