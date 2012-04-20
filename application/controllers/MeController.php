@@ -38,6 +38,7 @@ class MeController extends Zend_Controller_Action
 		list($service, $client) = $this->_set_up_google_api();
 		$currentLocation = $service->currentLocation->get();
 		
+		$this->view->assign('currentLocation', $currentLocation);
 	}
 	
 	public function addlatitudeAction(){
