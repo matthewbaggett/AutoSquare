@@ -24,6 +24,7 @@ class MeController extends Zend_Controller_Action
 			echo "<pre>";
 			var_dump($token);
 			echo "</pre>";
+			die();
 			$client->setAccessToken($token);
 		}
 		$service = new apiLatitudeService($client);
