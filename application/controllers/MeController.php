@@ -20,12 +20,7 @@ class MeController extends Zend_Controller_Action
 		
 		if(is_object(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token"))){
 			$token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
-			echo "<h3>Fuckin' token:</h3>";
-			echo "<pre>";
-			var_dump($token);
-			echo "</pre>";
-			die();
-			$client->setAccessToken($token);
+			$client->setAccessToken(json_encode($token));
 		}
 		$service = new apiLatitudeService($client);
 		
