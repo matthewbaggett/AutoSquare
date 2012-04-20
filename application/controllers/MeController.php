@@ -26,19 +26,24 @@ class MeController extends Zend_Controller_Action
 		
 		return array($service,client);
 	}
+	
+	private function _get_latitude_location(){
+		list($service, $client) = $this->_set_up_google_api();
+		$currentLocation = $service->currentLocation->get();
+		return $currentLocation;
+	}
+	
 	public function indexAction(){
 		
 	}
+	
 	public function showsessionAction(){
 		$google_latitude_access_token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
 		$this->view->assign("google_latitude_access_token",$google_latitude_access_token);
 	}
 	
 	public function latitudegetlocationAction(){
-		list($service, $client) = $this->_set_up_google_api();
-		$currentLocation = $service->currentLocation->get();
-		
-		$this->view->assign('currentLocation', $currentLocation);
+		$this->view->assign('currentLocation', $this->_get_latitude_location());
 	}
 	
 	public function addlatitudeAction(){
