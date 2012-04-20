@@ -46,11 +46,13 @@ class MeController extends Zend_Controller_Action
 			//$location = $service->location->listLocation();
 			$currentLocation = $service->currentLocation->get();
 			$_SESSION['access_token'] = $client->getAccessToken();
+			Zend_Auth::getInstance()->getIdentity()->settingSet("google_latitude_access_token",$client->getAccessToken());
 		}
 
 		$this->view->assign('currentLocation', $currentLocation);
 		$this->view->assign('location', $location);
 		$this->view->assign('authUrl', $authUrl);
+		
 			
 	}
    
