@@ -79,7 +79,9 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 
 	public function addLatitudeCompleteAction(){}
 	
-	
+	public function updateLocationFeedAction(){
+		$recent_locations = $this->_get_latitude_locations();
+	}
 	
 }
 
