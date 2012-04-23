@@ -78,7 +78,7 @@ class MeController extends Zend_Controller_Action
 			Turbo_Model_User::getCurrentUser()->settingSet("google_latitude_access_token", json_decode($client->getAccessToken()));
 		}
 
-		if($authUrl){
+		if(isset($authUrl)){
 			$this->_helper->redirector('add-latitude-complete', 'Me');
 		}
 		$this->view->assign('currentLocation', $currentLocation);
