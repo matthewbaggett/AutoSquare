@@ -27,11 +27,14 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		return array($service, $client);
 	}
 	
-	
 	private function _get_latitude_location(){
 		list($service, $client) = $this->_set_up_google_api();
 		$currentLocation = $service->currentLocation->get();
 		return $currentLocation;
+	}
+	
+	private function _get_latitude_locations($count = 100){
+		
 	}
 	
 	public function latitudeGetLocationAction(){

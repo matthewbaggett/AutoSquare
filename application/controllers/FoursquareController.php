@@ -4,7 +4,7 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 {
 
 	private function _include_foursquare_api(){
-		require_once dirname(__FILE__) . "/../../library/foursquare-api-client/foursquare.php";
+		require_once dirname(__FILE__) . "/../../library/simple-api-clients/foursquare.php";
 	}
 	
 	private function _set_up_foursquare_api(){
