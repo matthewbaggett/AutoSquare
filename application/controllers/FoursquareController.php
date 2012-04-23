@@ -23,7 +23,7 @@ class FoursquareController extends Zend_Controller_Action
 		$fsq = new foursquare_api();
 		$access_token = $fsq->get_access_token($_GET['code']);
 		Turbo_Model_User::getCurrentUser()->settingSet('foursquare_access_token',$access_token);
-		$this->_helper->redirector('add-foursquare-complete', 'Me');
+		$this->_helper->redirector('add-foursquare-complete');
 	}
 
 	public function addFoursquareCompleteAction(){}
