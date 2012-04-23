@@ -62,7 +62,7 @@ class GoogleController extends Zend_Controller_Action
 		}
 
 		if(isset($authUrl)){
-			$this->_helper->redirector('add-latitude-complete', 'Google');
+			//$this->_helper->redirector('add-latitude-complete', 'Google');
 		}
 		$this->view->assign('currentLocation', $currentLocation);
 		$this->view->assign('location', $location);
