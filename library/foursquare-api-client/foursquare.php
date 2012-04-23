@@ -10,4 +10,20 @@ class foursquare_api{
 		header("Location: $redirect_url");
 		exit;
 	}
+	
+	public function get_access_token($code){
+		$request_url = "https://foursquare.com/oauth2/access_token?client_id={$this->client_id}&client_secret={$this->client_secret}&grant_type=authorization_code&redirect_uri={$this->redirect_uri}&code={$code}";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $request_url);
+		curl_setopt($ch, CURLOPT_HEADER, TRUE);
+		curl_setopt($ch, CURLOPT_NOBODY, FALSE); // remove body
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		$response = curl_exec($ch);
+		curl_close($ch);
+		
+		echo "<pre>";
+		print_r($response);
+		echo "</pre>";
+		exit;
+	}
 }
