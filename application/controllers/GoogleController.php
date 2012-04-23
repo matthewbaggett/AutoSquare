@@ -3,6 +3,7 @@
 class GoogleController extends Turbo_Controller_LoggedInAction
 {
 	private function _include_google_api(){
+		require_once dirname(__FILE__) . '/../../library/simple-api-clients/foursquare.php';
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/apiClient.php';
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/contrib/apiLatitudeService.php';
 	}
@@ -34,7 +35,9 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	}
 	
 	private function _get_latitude_locations($count = 100){
-		
+		$this->_set_up_google_api();
+		$gapi = new google_api(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token"));
+		return $gapi->get_locations($count);
 	}
 	
 	public function latitudeGetLocationAction(){
