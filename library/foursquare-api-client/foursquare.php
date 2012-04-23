@@ -21,9 +21,6 @@ class foursquare_api{
 		$response = curl_exec($ch);
 		curl_close($ch);
 		
-		echo "<pre>";
-		print_r(json_decode($response));
-		echo "</pre>";
-		exit;
+		return json_decode($response)->access_token;
 	}
 }
