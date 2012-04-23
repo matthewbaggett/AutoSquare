@@ -94,7 +94,8 @@ class MeController extends Zend_Controller_Action
 	public function addFoursquareCallbackAction(){
 		$this->_include_foursquare_api();
 		$fsq = new foursquare_api();
-		print_r($_GET);exit;
+		$fsq->get_access_token($_GET['code']);
+		
 	}
    
 }
