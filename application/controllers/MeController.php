@@ -6,8 +6,12 @@ class MeController extends Zend_Controller_Action
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/apiClient.php';
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/contrib/apiLatitudeService.php';
 	}
+	
+	private function _include_foursquare_api(){
+		require_once dirname(__FILE__) . "/../../library/foursquare-api-client/foursquare.php";
+	}
+	
 	private function _set_up_google_api(){
-		$this->_include_google_api();
 		$this->_include_google_api();
 		
 		$client = new apiClient();
@@ -27,6 +31,11 @@ class MeController extends Zend_Controller_Action
 		return array($service,client);
 	}
 	
+	private function _set_up_foursquare_api(){
+		$this->_include_foursquare_api();
+		
+	}
+	
 	private function _get_latitude_location(){
 		list($service, $client) = $this->_set_up_google_api();
 		$currentLocation = $service->currentLocation->get();
@@ -37,16 +46,16 @@ class MeController extends Zend_Controller_Action
 		
 	}
 	
-	public function showsessionAction(){
+	public function showSessionAction(){
 		$google_latitude_access_token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
 		$this->view->assign("google_latitude_access_token",$google_latitude_access_token);
 	}
 	
-	public function latitudegetlocationAction(){
+	public function latitudeGetLocationAction(){
 		$this->view->assign('currentLocation', $this->_get_latitude_location());
 	}
 	
-	public function addlatitudeAction(){
+	public function addLatitudeAction(){
 		list($service, $client) = $this->_set_up_google_api();
 		
 		if (isset($_GET['code'])) {
@@ -74,6 +83,16 @@ class MeController extends Zend_Controller_Action
 		$this->view->assign('authUrl', $authUrl);
 		
 			
+	}
+	
+	public function addFoursquareAction(){
+		$this->_include_foursquare_api();
+		$fsq = new foursquare_api();
+	}
+	
+	public function addFoursquareCallbackAction(){
+		$this->_include_foursquare_api();
+		$fsq = new foursquare_api();
 	}
    
 }
