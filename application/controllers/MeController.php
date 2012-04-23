@@ -81,8 +81,7 @@ class MeController extends Zend_Controller_Action
 		$this->view->assign('currentLocation', $currentLocation);
 		$this->view->assign('location', $location);
 		$this->view->assign('authUrl', $authUrl);
-		
-			
+		$this->_helper->redirector('add-latitude-complete', 'Me');
 	}
 	
 	public function addFoursquareAction(){
@@ -94,10 +93,14 @@ class MeController extends Zend_Controller_Action
 	public function addFoursquareCallbackAction(){
 		$this->_include_foursquare_api();
 		$fsq = new foursquare_api();
-		$fsq->get_access_token($_GET['code']);
-		
+		$access_token = $fsq->get_access_token($_GET['code']);
+		Turbo_Model_User::getCurrentUser()->settingSet('foursquare_access_token',$access_token);
+		$this->_helper->redirector('add-foursquare-complete', 'Me');
 	}
-   
+
+	public function addFoursquareCompleteAction(){}
+	public function addLatitudeCompleteAction(){}
+	
 }
 
 
