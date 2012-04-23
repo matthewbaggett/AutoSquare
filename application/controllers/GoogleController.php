@@ -2,6 +2,10 @@
 
 class GoogleController extends Turbo_Controller_LoggedInAction
 {
+	private $client_id = '120853944602-j79u0cinskab6ile6gvoin71pc3b9d5i.apps.googleusercontent.com';
+	private $client_secret = 'Eme_vSHbukhyu-LNNrnvFgnZ';
+	private $application_name = "AutoSquare";
+	
 	private function _include_google_api(){
 		require_once dirname(__FILE__) . '/../../library/simple-api-clients/google.php';
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/apiClient.php';
@@ -14,10 +18,10 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$client = new apiClient();
 		// Visit https://code.google.com/apis/console to generate your
 		// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
-		$client->setClientId('120853944602-j79u0cinskab6ile6gvoin71pc3b9d5i.apps.googleusercontent.com');
-		$client->setClientSecret('Eme_vSHbukhyu-LNNrnvFgnZ');
+		$client->setClientId($this->client_id);
+		$client->setClientSecret($this->client_secret);
 		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/Google/Add-Latitude');
-		$client->setApplicationName("AutoSquare");
+		$client->setApplicationName($this->application_name);
 		
 		if(is_object(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token"))){
 			$token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
@@ -36,7 +40,8 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	
 	private function _get_latitude_locations($count = 100){
 		$this->_set_up_google_api();
-		$gapi = new google_api(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")->access_token);
+		$access_token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")->access_token;
+		$gapi = new google_api($access_token, $this->client_id, $this->client_secret);
 		return $gapi->get_locations($count);
 	}
 	
