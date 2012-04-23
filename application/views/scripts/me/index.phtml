@@ -1,7 +1,6 @@
 <h2>Data sources</h2>
 <ul>
-	<li><a href="/Me/Add-Latitude">Google Latitude account.</a></li>
-	
+	<li><a href="/Google/Add-Latitude">Google Latitude account.</a></li>
 </ul>
 
 <h2>Data sinks</h2>
@@ -16,7 +15,7 @@
 	<?php if(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")):?>
 		<li class="good">You <b>HAVE</b> got a Google Latitude key. <a href="/Me/My-Keys">Manage your keys.</a></li>
 	<?php else:?>
-		<li class="bad">You <b>HAVE NOT</b> got a Google Latitude key. <a href="/Me/Add-Latitude">Add one now!</a></li>
+		<li class="bad">You <b>HAVE NOT</b> got a Google Latitude key. <a href="/Google/Add-Latitude">Add one now!</a></li>
 	<?php endif;?>
 	
 	<?php if(Turbo_Model_User::getCurrentUser()->settingGet("foursquare_access_token")):?>
