@@ -28,7 +28,7 @@ class MeController extends Zend_Controller_Action
 		}
 		$service = new apiLatitudeService($client);
 		
-		return array($service,client);
+		return array($service, $client);
 	}
 	
 	private function _set_up_foursquare_api(){
