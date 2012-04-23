@@ -1,6 +1,6 @@
 <?php
 
-class MeController extends Zend_Controller_Action
+class MeController extends Turbo_Controller_LoggedInAction
 {
 	
 	public function indexAction(){

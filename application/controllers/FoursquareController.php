@@ -1,6 +1,6 @@
 <?php
 
-class FoursquareController extends Zend_Controller_Action
+class FoursquareController extends Turbo_Controller_LoggedInAction
 {
 
 	private function _include_foursquare_api(){

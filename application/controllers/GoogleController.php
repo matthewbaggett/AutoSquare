@@ -1,6 +1,6 @@
 <?php
 
-class GoogleController extends Zend_Controller_Action
+class GoogleController extends Turbo_Controller_LoggedInAction
 {
 	private function _include_google_api(){
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/apiClient.php';
