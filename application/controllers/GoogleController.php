@@ -12,7 +12,10 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		require_once dirname(__FILE__) . '/../../library/google-api-php-client/src/contrib/apiLatitudeService.php';
 	}
 	
-	private function _set_up_google_api(){
+	private function _set_up_google_api($user = null){
+		if($user === NULL){
+			$user = Turbo_Model_User::getCurrentUser();
+		}
 		$this->_include_google_api();
 		
 		$client = new apiClient();
@@ -23,8 +26,8 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/Google/Add-Latitude');
 		$client->setApplicationName($this->application_name);
 		
-		if(is_object(Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token"))){
-			$token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
+		if(is_object($user->settingGet("google_latitude_access_token"))){
+			$token = $user->settingGet("google_latitude_access_token");
 			$client->setAccessToken(json_encode($token));
 		}
 		$service = new apiLatitudeService($client);
@@ -33,13 +36,13 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	}
 	
 	private function _get_latitude_location(){
-		list($service, $client) = $this->_set_up_google_api();
+		list($service, $client) = $this->_set_up_google_api(Turbo_Model_User::getCurrentUser());
 		$currentLocation = $service->currentLocation->get();
 		return $currentLocation;
 	}
 	
-	private function _get_latitude_locations($count = 100){
-		list($service, $client) = $this->_set_up_google_api();
+	private function _get_latitude_locations(Turbo_Model_User $user, $count = 100){
+		list($service, $client) = $this->_set_up_google_api($user);
 		$location = $service->location->listLocation(array('granularity' => 'best','max-results' => 1000));
 		return $location['items'];
 	}
@@ -83,9 +86,9 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	public function addLatitudeCompleteAction(){}
 	
 	public function updateLocationFeedAction(){
-		$recent_locations = $this->_get_latitude_locations();
-		$tblUserLocations = new Application_Model_DbTable_UserLocations();
 		$user = Turbo_Model_User::getCurrentUser();
+		$recent_locations = $this->_get_latitude_locations($user);
+		$tblUserLocations = new Application_Model_DbTable_UserLocations();
 		$count_new = 0;
 		
 		foreach($recent_locations as $recent_location){

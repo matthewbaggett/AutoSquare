@@ -36,7 +36,7 @@ class Application_Form_Register extends Zend_Form
 		$level = new Zend_Form_Element_Select('level');
 		$level->setLabel('Level:');
 		$level->addMultiOption(1,'Basic');
-		if(Application_Model_User::isLoggedInUserAdmin()){
+		if(Turbo_Model_User::isLoggedInUserAdmin()){
 			$level->addMultiOption(9,'Editor');
 			$level->addMultiOption(10,'Administrator');
 		}
