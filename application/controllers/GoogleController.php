@@ -41,8 +41,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	private function _get_latitude_locations($count = 100){
 		list($service, $client) = $this->_set_up_google_api();
 		$location = $service->location->listLocation(array('granularity' => 'best'));
-		print_r($location);
-		exit;
+		return $location['items'];
 	}
 	
 	public function latitudeGetLocationAction(){
@@ -85,6 +84,15 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	
 	public function updateLocationFeedAction(){
 		$recent_locations = $this->_get_latitude_locations();
+		$tblUserLocations = new Application_Model_DbTable_UserLocations();
+		$user = Turbo_Model_User::getCurrentUser();
+		foreach($recent_locations as $recent_location){
+			//Test to see if we can find a matching location for this user
+			if(!$tblUserLocations->user_location_already_reported($user, $recent_location['timestampMs'])){
+				//Insert the location
+				$tblUserLocations->insert_location($user, $recent_location);
+			}
+		}
 	}
 	
 }
