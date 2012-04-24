@@ -19,7 +19,7 @@ class Application_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     	echo "<pre>";
     	echo $select;
     	echo "</pre>";
-    	if($this->fetchRow($sel_setting)){
+    	if($this->fetchRow($select)){
     		return TRUE;
     	}
     	return FALSE;
