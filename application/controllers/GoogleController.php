@@ -39,10 +39,10 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	}
 	
 	private function _get_latitude_locations($count = 100){
-		$this->_set_up_google_api();
-		$access_token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")->access_token;
-		$gapi = new google_api($access_token, $this->client_id, $this->client_secret);
-		return $gapi->get_locations($count);
+		list($service, $client) = $this->_set_up_google_api();
+		$location = $service->currentLocation->get();
+		print_r($location);
+		exit;
 	}
 	
 	public function latitudeGetLocationAction(){
@@ -78,7 +78,6 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$this->view->assign('currentLocation', $currentLocation);
 		$this->view->assign('location', $location);
 		$this->view->assign('authUrl', $authUrl);
-		
 		
 	}
 
