@@ -15,7 +15,7 @@ class Application_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     public function user_location_already_reported(Turbo_Model_User $user, $timestamp){
     	$select = $this->select(true);
     	$select->where('intUserID = ?',$user->intUserID);
-    	$select->where('intTimestamp = ?', $timestamp);
+    	$select->where('intTimestampMs = ?', $timestamp);
     	echo "<pre>";
     	echo $select;
     	echo "</pre>";
