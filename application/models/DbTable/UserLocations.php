@@ -39,7 +39,7 @@ class Application_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     			'dtmTimestamp' => date("Y-m-d H:i:s", ($location['timestampMs']/1000)),
     			'locLatitude' => $location['latitude'],
     			'locLongitude' => $location['longitude'],
-    			'accuracy' => $location['accuracy'],
+    			'accuracy' => isset($location['accuracy'])?$location['accuracy']:0,
     			'dtmDiscovered' => date("Y-m-d H:i:s")
     	));
     	
