@@ -40,7 +40,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	
 	private function _get_latitude_locations($count = 100){
 		list($service, $client) = $this->_set_up_google_api();
-		$location = $service->currentLocation->get();
+		$location = $service->location->listLocation(array('granularity' => 'best'));
 		print_r($location);
 		exit;
 	}
