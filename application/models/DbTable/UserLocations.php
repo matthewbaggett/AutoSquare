@@ -16,7 +16,7 @@ class Application_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     	$select = $this->select(true);
     	$select->where('intUserID = ?',$user->intUserID);
     	$select->where('intTimestamp = ?', $timestamp);
-    	if($tblUserSettings->fetchRow($sel_setting)){
+    	if($this->fetchRow($sel_setting)){
     		return TRUE;
     	}
     	return FALSE;
