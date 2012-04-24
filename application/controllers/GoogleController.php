@@ -86,13 +86,18 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$recent_locations = $this->_get_latitude_locations();
 		$tblUserLocations = new Application_Model_DbTable_UserLocations();
 		$user = Turbo_Model_User::getCurrentUser();
+		$count_new = 0;
+		
 		foreach($recent_locations as $recent_location){
 			//Test to see if we can find a matching location for this user
 			if(!$tblUserLocations->user_location_already_reported($user, $recent_location['timestampMs'])){
 				//Insert the location
+				$count_new++;
 				$tblUserLocations->insert_location($user, $recent_location);
 			}
 		}
+		$this->view->assign('count_seen', count($recent_locations));
+		$this->view->assign('count_new', $count_new);
 	}
 	
 }
