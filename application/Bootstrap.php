@@ -18,6 +18,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$autoloader->registerNamespace("Turbo_");
 		$autoloader->registerNamespace("Boris_");
 		$autoloader->registerNamespace("Snoopy_");
+		$autoloader->registerNamespace("Game_");
 	    if (PHP_SAPI == 'cli')
 	    {
 	    	$this->bootstrap ('frontcontroller');
