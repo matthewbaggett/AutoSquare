@@ -88,7 +88,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	public function updateLocationFeedAction(){
 		$user = Turbo_Model_User::getCurrentUser();
 		$recent_locations = $this->_get_latitude_locations($user);
-		$tblUserLocations = new Application_Model_DbTable_UserLocations();
+		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		$count_new = 0;
 		
 		foreach($recent_locations as $recent_location){

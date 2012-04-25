@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
+class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'tblUserLocations';
