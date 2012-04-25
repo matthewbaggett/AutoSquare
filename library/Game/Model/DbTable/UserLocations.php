@@ -39,7 +39,18 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     			'accuracy' => isset($location['accuracy'])?$location['accuracy']:0,
     			'dtmDiscovered' => date("Y-m-d H:i:s")
     	));
-    	
+    }
+    
+    /**
+     * Grab the locations tied to this user that are not yet checked.
+     * @param Turbo_Model_User $user
+     * @return Zend_Db_Table_Rowset_Abstract
+     */
+    public function get_unchecked_locations_for_user(Turbo_Model_User $user){
+    	$select = $this->select(true);
+    	$select->where('intUserID = ?',$user->intUserID);
+    	$select->where('bolChecked = ?', 0);
+    	return $this->fetchAll($select);
     }
 }
 
