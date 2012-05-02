@@ -1,4 +1,3 @@
-
 <?php
 
 class Game_Model_DbTable_AchievementLocationsSearch extends Zend_Db_Table_Abstract
@@ -8,8 +7,6 @@ class Game_Model_DbTable_AchievementLocationsSearch extends Zend_Db_Table_Abstra
 	protected $_name = 'viewAchievementLocations';
 
 	private function distance_haversine($lat1, $lon1, $lat2, $lon2) {
-
-
 		$delta_lat = $lat_2 - $lat_1 ;
 		$delta_lon = $lon_2 - $lon_1 ;
 		$alpha    = $delta_lat/2;
