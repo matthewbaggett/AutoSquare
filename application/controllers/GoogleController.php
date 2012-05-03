@@ -105,7 +105,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$this->view->assign('count_new', $count_new);
 	}
 	
-	public function cronUpdateLocationFeeds(){
+	public function cronUpdateLocationFeedsAction(){
 		$tblUsers = new Turbo_Model_DbTable_Users();
 		$arr_users = $tblUsers->fetchAll();
 		foreach($arr_users as $user){
