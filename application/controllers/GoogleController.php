@@ -108,9 +108,11 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	public function cronUpdateLocationFeedsAction(){
 		$tblUsers = new Turbo_Model_DbTable_Users();
 		$arr_users = $tblUsers->fetchAll();
+		echo "Processing " . count($arr_users) . " users.\n";
 		foreach($arr_users as $user){
+			echo " > {$user->strUsername}";
 			updateLocationFeedAction($user);
-			echo "{$user->strUsername} - Got {$this->view->count_seen} locations, {$this->view->count_new} new.\n";
+			echo " - Got {$this->view->count_seen} locations, {$this->view->count_new} new.\n";
 		}
 		exit;
 		
