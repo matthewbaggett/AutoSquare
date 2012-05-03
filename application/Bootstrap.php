@@ -32,7 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
 	    if (PHP_SAPI == 'cli'){
 	    	ini_set('display_errors', 1);
-	    	error_reporting(E_ALL);
+	    	error_reporting(E_ALL ^ E_NOTICE);
 	        $front = Zend_Controller_Front::getInstance();
 			$front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
 			    'controller' => 'error',
