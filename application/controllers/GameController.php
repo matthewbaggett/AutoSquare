@@ -1,7 +1,10 @@
 <?php 
 class GameController extends Turbo_Controller_LoggedInAction{
-	public function checkForAchievementsAction(){
-		$game_instance = new Game_Core(Turbo_Model_User::getCurrentUser());
+	public function checkForAchievementsAction($user = null){
+		if($user === null){
+			$user = Turbo_Model_User::getCurrentUser();
+		}
+		$game_instance = new Game_Core($user);
 		$arr_new_achievements = $game_instance->check_for_achievements();
 		
 	}

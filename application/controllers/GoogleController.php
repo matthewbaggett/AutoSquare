@@ -110,6 +110,15 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$this->view->assign('count_new', $count_new);
 	}
 	
+	public function checkForAchievementsAction($user = null){
+		if(!$user){
+			$user = Turbo_Model_User::getCurrentUser();
+		}
+		$game_instance = new Game_Core($user);
+		$arr_new_achievements = $game_instance->check_for_achievements();
+		$this->view->assign('achievements', $arr_new_achievements);
+	}
+	
 	public function cronUpdateLocationFeedsAction(){
 		$tblUsers = new Turbo_Model_DbTable_Users();
 		$arr_users = $tblUsers->fetchAll();
@@ -120,7 +129,22 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 			echo " - Got {$this->view->count_seen} locations, {$this->view->count_new} new.\n";
 		}
 		exit;
-		
+	}
+	
+	public function cronCheckForAchievementsAction(){
+		$tblUsers = new Turbo_Model_DbTable_Users();
+		$arr_users = $tblUsers->fetchAll();
+		echo "Processing " . count($arr_users) . " users.\n";
+		foreach($arr_users as $user){
+			echo " > {$user->strUsername}";
+			$this->checkForAchievementsAction($user);
+			if($this->view->achievements !== null){
+				foreach($this->view->achievements as $achievement){
+					echo "{$achievement->strAchievementName}!\n";
+				}
+			}
+		}
+		exit;
 	}
 	
 }
