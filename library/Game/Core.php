@@ -9,14 +9,13 @@ class Game_Core{
 	
 	protected function _check_for_achievements_for_userlocation($user_location){
 
-		var_dump($this);
-		exit;
-		$select = new Zend_Db_Select($this->_db);
-		$select->from('viewAchievementLocations');
-		$select->where('locLatitudeMin < ?', 	$user_location->locLatitude);
-		$select->where('locLatitudeMax > ?', 	$user_location->locLatitude);
-		$select->where('locLongitudeMin < ?', 	$user_location->locLongitude);
-		$select->where('locLongitudeMax > ?', 	$user_location->locLongitude);
+		$tblAchievementLocations = new Game_Model_DbTable_AchievementLocations();
+		$select = $tblAchievementLocations->select();
+		
+		$select->where('locLatitude - (intRadius/(111*1000)) < ?', 	$user_location->locLatitude);
+		$select->where('locLatitude + (intRadius/(111*1000)) > ?', 	$user_location->locLatitude);
+		$select->where('locLongitude - (intRadius/(85*1000)) < ?', 	$user_location->locLongitude);
+		$select->where('locLongitude + (intRadius/(85*1000)) > ?', 	$user_location->locLongitude);
 		echo $select;
 		exit;
 		$arr_rough_search = $this->fetchAll($select);
