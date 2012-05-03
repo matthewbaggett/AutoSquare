@@ -96,8 +96,8 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		
 		$count_new = 0;
 		
-		if(count($recent_locations) > 0){
-			foreach((array) $recent_locations as $recent_location){
+		if(is_array($recent_locations)){
+			foreach($recent_locations as $recent_location){
 				//Test to see if we can find a matching location for this user
 				if(!$tblUserLocations->user_location_already_reported($user, $recent_location['timestampMs'])){
 					//Insert the location
