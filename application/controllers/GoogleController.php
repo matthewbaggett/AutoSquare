@@ -23,7 +23,9 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
 		$client->setClientId($this->client_id);
 		$client->setClientSecret($this->client_secret);
-		$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/Google/Add-Latitude');
+		if (PHP_SAPI != 'cli'){
+			$client->setRedirectUri('http://'.$_SERVER['SERVER_NAME'].'/Google/Add-Latitude');
+		}
 		$client->setApplicationName($this->application_name);
 		
 		if(is_object($user->settingGet("google_latitude_access_token"))){
@@ -44,7 +46,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	private function _get_latitude_locations(Turbo_Model_User $user, $count = 100){
 		list($service, $client) = $this->_set_up_google_api($user);
 		$location = $service->location->listLocation(array('granularity' => 'best','max-results' => 1000));
-		return $location['items'];
+		return isset($location['items'])?$location['items']:false;
 	}
 	
 	public function latitudeGetLocationAction(){
@@ -93,7 +95,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		$count_new = 0;
 		
-		foreach($recent_locations as $recent_location){
+		foreach((array) $recent_locations as $recent_location){
 			//Test to see if we can find a matching location for this user
 			if(!$tblUserLocations->user_location_already_reported($user, $recent_location['timestampMs'])){
 				//Insert the location
