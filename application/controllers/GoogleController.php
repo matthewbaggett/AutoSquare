@@ -111,7 +111,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		echo "Processing " . count($arr_users) . " users.\n";
 		foreach($arr_users as $user){
 			echo " > {$user->strUsername}";
-			updateLocationFeedAction($user);
+			$this->updateLocationFeedAction($user);
 			echo " - Got {$this->view->count_seen} locations, {$this->view->count_new} new.\n";
 		}
 		exit;
