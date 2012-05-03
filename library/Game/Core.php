@@ -17,7 +17,6 @@ class Game_Core{
 		$select->where('locLongitude - (intRadius/(85*1000)) < ?', 	$user_location->locLongitude);
 		$select->where('locLongitude + (intRadius/(85*1000)) > ?', 	$user_location->locLongitude);
 		$arr_rough_search = $tblAchievementLocations->fetchAll($select);
-
 		echo "Rough searches:\n";
 		var_dump($arr_rough_search);
 		// loop over these rough results, and compute the distances:
@@ -29,6 +28,9 @@ class Game_Core{
 		}
 		echo "Refined searches:\n";
 		var_dump($arr_locations_in_radius);
+		
+		echo "Found " . count($arr_rough_search) . " rough searches.\n";
+		echo " > Of which, " . count($arr_locations_in_radius) . " were refined.\n";
 		exit;
 			
 		return $arr_locations_in_radius;
