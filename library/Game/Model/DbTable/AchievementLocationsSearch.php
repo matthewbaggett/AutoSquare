@@ -32,7 +32,6 @@ class Game_Model_DbTable_AchievementLocationsSearch extends Zend_Db_Table_Abstra
 		$select->where('locLongitudeMax > ?',$longitude);
 		$arr_rough_search = $this->fetchAll($select);
 
-
 		// loop over these rough results, and compute the distances:
 		foreach($arr_rough_search as $potential_location){
 			$distance = $this->distance_haversine($latitude, $longitude, $potential_location->locLatitude, $potential_location->locLongitude);
