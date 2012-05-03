@@ -9,6 +9,8 @@ class Game_Core{
 	
 	protected function _check_for_achievements_for_userlocation($user_location){
 
+		var_dump(get_class_vars($this));
+		exit;
 		$select = new Zend_Db_Select($this->_db);
 		$select->from('viewAchievementLocations');
 		$select->where('locLatitudeMin < ?', 	$user_location->locLatitude);
