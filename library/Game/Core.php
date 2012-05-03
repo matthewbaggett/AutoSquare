@@ -4,12 +4,12 @@ class Game_Core{
 	
 	public function __construct(Turbo_Model_User $user){
 		$this->user = $user;
-		$this->db = Zend_Db::factory('default');
+		
 	}
 	
 	protected function _check_for_achievements_for_userlocation($user_location){
 
-		$select = new Zend_Db_Select($this->db);
+		$select = new Zend_Db_Select($this->_db);
 		$select->from('viewAchievementLocations');
 		$select->where('locLatitudeMin < ?', 	$user_location->locLatitude);
 		$select->where('locLatitudeMax > ?', 	$user_location->locLatitude);
