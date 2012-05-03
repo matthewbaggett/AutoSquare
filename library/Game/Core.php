@@ -17,8 +17,6 @@ class Game_Core{
 		$select->where('locLongitude - (intRadius/(85*1000)) < ?', 	$user_location->locLongitude);
 		$select->where('locLongitude + (intRadius/(85*1000)) > ?', 	$user_location->locLongitude);
 		$arr_rough_search = $tblAchievementLocations->fetchAll($select);
-		echo "Rough searches:\n";
-		var_dump($arr_rough_search);
 		// loop over these rough results, and compute the distances:
 		foreach($arr_rough_search as $potential_location){
 			$distance = $this->distance_haversine($latitude, $longitude, $potential_location->locLatitude, $potential_location->locLongitude);
@@ -26,15 +24,10 @@ class Game_Core{
 				$arr_locations_in_radius[$potential_location->strName] = $potential_location;
 			}
 		}
-		echo "Refined searches:\n";
-		var_dump($arr_locations_in_radius);
-		
-		echo "Found " . count($arr_rough_search) . " rough searches.\n";
-		echo " > Of which, " . count($arr_locations_in_radius) . " were refined.\n";
-		exit;
 			
 		return $arr_locations_in_radius;
 	}
+	
 	public function check_for_achievements(){
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		foreach($tblUserLocations->get_unchecked_locations_for_user($this->user) as $user_location){
