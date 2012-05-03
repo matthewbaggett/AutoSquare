@@ -31,6 +31,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initError ()
 	{
 	    if (PHP_SAPI == 'cli'){
+	    	ini_set('display_errors', 1);
+	    	error_reporting(E_ALL);
 	        $front = Zend_Controller_Front::getInstance();
 			$front->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
 			    'controller' => 'error',
