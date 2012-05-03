@@ -106,6 +106,8 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	}
 	
 	public function cronUpdateLocationFeedsAction(){
+		echo "Herp.\n";
+		exit;
 		$tblUsers = new Turbo_Model_DbTable_Users();
 		$arr_users = $tblUsers->fetchAll();
 		echo "Processing " . count($arr_users) . " users.\n";
