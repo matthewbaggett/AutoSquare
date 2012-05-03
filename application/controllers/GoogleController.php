@@ -85,8 +85,10 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 
 	public function addLatitudeCompleteAction(){}
 	
-	public function updateLocationFeedAction(){
-		$user = Turbo_Model_User::getCurrentUser();
+	public function updateLocationFeedAction($user = null){
+		if(!$user){
+			$user = Turbo_Model_User::getCurrentUser();
+		}
 		$recent_locations = $this->_get_latitude_locations($user);
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		$count_new = 0;
@@ -101,6 +103,17 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		}
 		$this->view->assign('count_seen', count($recent_locations));
 		$this->view->assign('count_new', $count_new);
+	}
+	
+	public function cronUpdateLocationFeeds(){
+		$tblUsers = new Turbo_Model_DbTable_Users();
+		$arr_users = $tblUsers->fetchAll();
+		foreach($arr_users as $user){
+			updateLocationFeedAction($user);
+			echo "{$user->strUsername} - Got {$this->view->count_seen} locations, {$this->view->count_new} new.\n";
+		}
+		exit;
+		
 	}
 	
 }
