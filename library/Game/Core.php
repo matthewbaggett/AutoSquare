@@ -4,7 +4,7 @@ class Game_Core{
 	
 	public function __construct(Turbo_Model_User $user){
 		$this->user = $user;
-		$this->db = Zend_Db::factory();
+		$this->db = Zend_Db::factory('default');
 	}
 	
 	protected function _check_for_achievements_for_userlocation($user_location){
