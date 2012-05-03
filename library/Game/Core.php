@@ -16,7 +16,7 @@ class Game_Core{
 		$select->where('locLatitude + (intRadius/(111*1000)) > ?', 	$user_location->locLatitude);
 		$select->where('locLongitude - (intRadius/(85*1000)) < ?', 	$user_location->locLongitude);
 		$select->where('locLongitude + (intRadius/(85*1000)) > ?', 	$user_location->locLongitude);
-		$arr_rough_search = $this->fetchAll($select);
+		$arr_rough_search = $tblAchievementLocations->fetchAll($select);
 
 		echo "Rough searches:\n";
 		var_dump($arr_rough_search);
