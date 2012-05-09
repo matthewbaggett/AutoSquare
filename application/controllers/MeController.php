@@ -18,7 +18,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 	}
 	
 	public function mapAction(){
-		
+		$this->headScript()->append("http://maps.googleapis.com/maps/api/js?key=AIzaSyAeDI_T5MhRJtykibKEqszGZAxxGB3iaTg&sensor=true");
 	}
 }
 
