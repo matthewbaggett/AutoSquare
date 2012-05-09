@@ -10,11 +10,11 @@ class LayoutController extends Zend_Controller_Action
     	$arr_sitemap_nodes_main = array();
     	$this->view->assign('arr_sitemap_nodes_main',$arr_sitemap_nodes_main);
     	
-    	$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
-    	$this->headTitle()->setSeparator(' - ');
-    	$this->headTitle('AutoSquare');
+    	$this->view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+    	$this->view->headTitle()->setSeparator(' - ');
+    	$this->view->headTitle('AutoSquare');
     	
-    	$this->headScript()
+    	$this->view->headScript()
 	    	->appendFile("http://platform.twitter.com/widgets.js")
 	    	->appendFile($this->baseUrl() . "/js/jquery.js")
 	    	->appendFile($this->baseUrl() . "/js/google-code-prettify/prettify.js")
