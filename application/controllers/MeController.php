@@ -18,8 +18,8 @@ class MeController extends Turbo_Controller_LoggedInAction
 	}
 	
 	public function mapAction(){
-		$this->view->headScript()->appendScript("http://maps.googleapis.com/maps/api/js?key=AIzaSyAeDI_T5MhRJtykibKEqszGZAxxGB3iaTg&sensor=true");
-		$this->view->headScript()->appendScript($this->view->baseUrl() . "/application-me-map.js");
+		$this->view->headScript()->appendFile("http://maps.googleapis.com/maps/api/js?key=AIzaSyAeDI_T5MhRJtykibKEqszGZAxxGB3iaTg&sensor=true");
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/application-me-map.js");
 		
 	}
 }
