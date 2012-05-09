@@ -49,8 +49,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 					'date' => date("Y-M-D",strtotime($obj_user_location->dtmTimestamp)),
 					'time' => date("H:i:s",strtotime($obj_user_location->dtmTimestamp)),
 					"speed" => isset($obj_user_location->numSpeed)?$obj_user_location->numSpeed.' mph':'',
-					"deltaLat" => $obj_user_location->locLatitude - $obj_user_location->locPrevLatitude,
-					"deltaLon" => $obj_user_location->locLongitude - $obj_user_location->locPrevLongitude,
+					"bearing" => $obj_user_location->numBearing,
 					);
 		}
 		return $arr_locations_latlongs;

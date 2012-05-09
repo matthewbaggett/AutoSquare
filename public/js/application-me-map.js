@@ -48,17 +48,7 @@ function initialize_overlay(){
 	      title: waypoints[i]['title'],
 	      map: map
 	    });
-	    
-	    var direction = '';
-	    if(waypoints[i]['deltaLat'] > 0 && waypoints[i]['deltaLon'] > 0){
-	    	direction = 'A';
-	    }else if(waypoints[i]['deltaLat'] < 0 && waypoints[i]['deltaLon'] > 0){
-	    	direction = "B";
-	    }else if(waypoints[i]['deltaLat'] > 0 && waypoints[i]['deltaLon'] < 0){
-	    	direction = "C";
-	    }else{ // < <
-	    	direction = "D";
-	    }
+	   
 	    waypoint_list += '' +
 	    	'<li>' +
 	    	'	<ul id="waypoint-' + waypoints[i]['id'] + '">' +
@@ -67,7 +57,7 @@ function initialize_overlay(){
 	    	'		<li class="speed">' + waypoints[i]['speed'] + '</li>' +
 	    	'		<li class="delta deltalat">' + waypoints[i]['deltaLat'] + '</li>' +
 	    	'		<li class="delta deltalon">' + waypoints[i]['deltaLon'] + '</li>' +
-	    	'		<li class="direction">' + direction + '</li>' + 
+	    	'		<li class="bearing">' + waypoints[i]['bearing'] + '&deg;</li>' + 
 	    	'	</ul>' +
 	    	'</li>';
 	    
