@@ -14,6 +14,7 @@ function initialize_map() {
 	directionsDisplay.setMap(map);
 	
 	console.log("processing " . waypoints.length . " waypoints...");
+	
 	var request = {
 	        origin: waypoints.shift, 
 	        destination: waypoints.pop,
