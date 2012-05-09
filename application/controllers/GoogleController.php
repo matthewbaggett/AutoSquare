@@ -124,6 +124,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$arr_users = $tblUsers->fetchAll();
 		echo "Processing " . count($arr_users) . " users.\n";
 		foreach($arr_users as $user){
+			var_dump($user->settingGet("google_latitude_access_token"));
 			echo " > {$user->strUsername}";
 			$this->updateLocationFeedAction($user);
 			echo " - Got {$this->view->count_seen} locations, {$this->view->count_new} new.\n";

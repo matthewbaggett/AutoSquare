@@ -12,10 +12,10 @@ class LayoutController extends Zend_Controller_Action
     	
     	$this->view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
     	$this->view->headTitle()->setSeparator(' - ');
-    	$this->view->headTitle('AutoSquare');
+    	$this->view->headTitle('Gamitude');
     	
     	$this->view->headScript()
-	    	->appendFile("http://platform.twitter.com/widgets.js")
+	    	//->appendFile("http://platform.twitter.com/widgets.js")
 	    	->appendFile($this->view->baseUrl() . "/js/jquery.js")
 	    	->appendFile($this->view->baseUrl() . "/js/google-code-prettify/prettify.js")
 	    	->appendFile($this->view->baseUrl() . "/js/bootstrap-transition.js")
