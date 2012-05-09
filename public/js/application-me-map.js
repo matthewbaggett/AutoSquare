@@ -13,15 +13,15 @@ function initialize_map() {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	directionsDisplay.setMap(map);
 	
-	console.log("processing " . waypoints.length . " waypoints...");
+	alert("processing " . waypoints.length . " waypoints...");
 	
 	var request = {
-	        origin: waypoints.shift, 
-	        destination: waypoints.pop,
-	        waypoints: waypoints,
-	        optimizeWaypoints: true,
-	        travelMode: google.maps.DirectionsTravelMode.DRIVING
-	    };
+        origin: waypoints.shift, 
+        destination: waypoints.pop,
+        waypoints: waypoints,
+        optimizeWaypoints: true,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
@@ -30,12 +30,8 @@ function initialize_map() {
         // For each route, display summary information.
         for (var i = 0; i < route.legs.length; i++) {
           var routeSegment = i + 1;
-          var line = '';
-          line += "Route Segment: " + routeSegment + " - ";
-          line += route.legs[i].start_address + " to ";
-          line += route.legs[i].end_address + " - ";
-          line += route.legs[i].distance.text + "";
-          console.log(line);
+          var line = "Route Segment: " + routeSegment + " - " + route.legs[i].start_address + " to " + route.legs[i].end_address + " - " + route.legs[i].distance.text;
+          alert(line);
         }
       }
     });

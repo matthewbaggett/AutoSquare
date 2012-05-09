@@ -26,7 +26,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel = $tblUserLocations->select();
 		$sel->where('intUserID = ?', Turbo_Model_User::getCurrentUser()->intUserID);
 		$sel->order('dtmTimestamp DESC');
-		$sel->limit(100);
+		$sel->limit(8);
 		
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
