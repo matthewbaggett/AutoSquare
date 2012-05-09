@@ -1,0 +1,25 @@
+.map{}
+.map .report{}
+.map .report ul{
+	float: left; display: block;
+	width: 370px;
+	margin: 0;
+}
+.map .report ul > li{
+	float: left; display: block;
+	width: 370px;
+}
+.map .report ul > li > ul{
+	float: left; display: block;
+	width: 370px;
+	border: 1px solid black;
+	margin-bottom: -1px;
+}
+.map .report ul > li > ul > li{
+	float: left; display: block;
+	width: auto;
+	padding: 3px;
+}
+.map .report ul > li > ul > li#id{}
+.map .report ul > li > ul > li#time{}
+.map .report ul > li > ul > li#speed{}
