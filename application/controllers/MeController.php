@@ -8,13 +8,13 @@ class MeController extends Turbo_Controller_LoggedInAction
 	}
 	
 	public function showSessionAction(){
-		$google_latitude_access_token = Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
+		$google_latitude_access_token = Application_Model_User::getCurrentUser()->settingGet("google_latitude_access_token");
 		$this->view->assign("google_latitude_access_token",$google_latitude_access_token);
 	}
 	
 	public function myKeysAction(){
-		$this->view->assign("google_latitude_access_token", Turbo_Model_User::getCurrentUser()->settingGet("google_latitude_access_token"));
-		$this->view->assign("foursquare_access_token", Turbo_Model_User::getCurrentUser()->settingGet("foursquare_access_token"));
+		$this->view->assign("google_latitude_access_token", Application_Model_User::getCurrentUser()->settingGet("google_latitude_access_token"));
+		$this->view->assign("foursquare_access_token", Application_Model_User::getCurrentUser()->settingGet("foursquare_access_token"));
 	}
 	
 	public function mapAction(){
@@ -24,7 +24,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		
 		$sel = $tblUserLocations->select();
-		$sel->where('intUserID = ?', Turbo_Model_User::getCurrentUser()->intUserID);
+		$sel->where('intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
 		$sel->order('dtmTimestamp DESC');
 		$sel->limit(100);
 		

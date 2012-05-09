@@ -4,15 +4,15 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'tblUserLocations';
-	//protected $_rowClass = 'Turbo_Model_User';
+	//protected $_rowClass = 'Application_Model_User';
 
     /**
      * Test to see if the users location was already reported.
-     * @param Turbo_Model_User $user
+     * @param Application_Model_User $user
      * @param integer $timestamp
      * @return boolean
      */
-    public function user_location_already_reported(Turbo_Model_User $user, $timestamp){
+    public function user_location_already_reported(Application_Model_User $user, $timestamp){
     	$select = $this->select(true);
     	$select->where('intUserID = ?',$user->intUserID);
     	$select->where('intTimestampMs = ?', $timestamp);
@@ -24,11 +24,11 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     
     /**
      * Insert location into the database
-     * @param Turbo_Model_User $user
+     * @param Application_Model_User $user
      * @param array $location Google Latitude response.
      * @return integer insertion id
      */
-    public function insert_location(Turbo_Model_User $user, array $location){
+    public function insert_location(Application_Model_User $user, array $location){
     	return $this->insert(array(
     			'intUserID' => $user->intUserID,
     			'strKind' => $location['kind'],
@@ -43,10 +43,10 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     
     /**
      * Grab the locations tied to this user that are not yet checked.
-     * @param Turbo_Model_User $user
+     * @param Application_Model_User $user
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function get_unchecked_locations_for_user(Turbo_Model_User $user){
+    public function get_unchecked_locations_for_user(Application_Model_User $user){
     	$select = $this->select(true);
     	$select->where('intUserID = ?',$user->intUserID);
     	$select->where('bolChecked = ?', 0);

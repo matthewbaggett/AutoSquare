@@ -14,7 +14,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	
 	private function _set_up_google_api($user = null){
 		if($user === NULL){
-			$user = Turbo_Model_User::getCurrentUser();
+			$user = Application_Model_User::getCurrentUser();
 		}
 		$this->_include_google_api();
 		
@@ -38,12 +38,12 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	}
 	
 	private function _get_latitude_location(){
-		list($service, $client) = $this->_set_up_google_api(Turbo_Model_User::getCurrentUser());
+		list($service, $client) = $this->_set_up_google_api(Application_Model_User::getCurrentUser());
 		$currentLocation = $service->currentLocation->get();
 		return $currentLocation;
 	}
 	
-	private function _get_latitude_locations(Turbo_Model_User $user, $count = 100){
+	private function _get_latitude_locations(Application_Model_User $user, $count = 100){
 		list($service, $client) = $this->_set_up_google_api($user);
 		$location = $service->location->listLocation(array('granularity' => 'best','max-results' => 1000));
 		return isset($location['items'])?$location['items']:false;
@@ -73,7 +73,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 			//$location = $service->location->listLocation();
 			$currentLocation = $service->currentLocation->get();
 			$_SESSION['access_token'] = $client->getAccessToken();
-			Turbo_Model_User::getCurrentUser()->settingSet("google_latitude_access_token", json_decode($client->getAccessToken()));
+			Application_Model_User::getCurrentUser()->settingSet("google_latitude_access_token", json_decode($client->getAccessToken()));
 		}
 
 		if(isset($authUrl)){
@@ -89,7 +89,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	
 	public function updateLocationFeedAction($user = null){
 		if(!$user){
-			$user = Turbo_Model_User::getCurrentUser();
+			$user = Application_Model_User::getCurrentUser();
 		}
 		$recent_locations = $this->_get_latitude_locations($user);
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
@@ -112,7 +112,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 	
 	public function checkForAchievementsAction($user = null){
 		if(!$user){
-			$user = Turbo_Model_User::getCurrentUser();
+			$user = Application_Model_User::getCurrentUser();
 		}
 		$game_instance = new Game_Core($user);
 		$arr_new_achievements = $game_instance->check_for_achievements();
@@ -146,6 +146,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		}
 		exit;
 	}
+	
 	
 }
 
