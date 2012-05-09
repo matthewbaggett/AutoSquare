@@ -20,8 +20,8 @@ function initialize_map() {
 }
 function initialize_overlay(){
 	var request = {
-        origin: waypoints.shift, 
-        destination: waypoints.pop,
+        origin: waypoints.shift(), 
+        destination: waypoints.pop(),
         waypoints: waypoints,
         optimizeWaypoints: true,
         travelMode: google.maps.DirectionsTravelMode.DRIVING
