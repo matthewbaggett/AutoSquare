@@ -33,6 +33,7 @@ function initialize_overlay(){
 		
 		// Because path is an MVCArray, we can simply append a new coordinate
 	    // and it will automatically appear
+		console.log(waypoints[i]);
 	    path.push(waypoints[i]['location']);
 
 	    // Add a new marker at the new plotted point on the polyline.
