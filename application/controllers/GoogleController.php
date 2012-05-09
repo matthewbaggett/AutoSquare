@@ -136,7 +136,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$arr_users = $tblUsers->fetchAll();
 		echo "Processing " . count($arr_users) . " users.\n";
 		foreach($arr_users as $user){
-			echo " > {$user->strUsername}";
+			echo " > {$user->strUsername}..\n";
 			$this->checkForAchievementsAction($user);
 			if($this->view->achievements !== null){
 				foreach($this->view->achievements as $achievement){
