@@ -1,8 +1,11 @@
 DROP VIEW viewUserLocations;
 CREATE VIEW viewUserLocations AS
 SELECT 
+ul.intUserLocationID as intUserLocationID,
+ul.intPrevUserLocationID as intPrevUserLocationID,
 CONCAT_WS(' - ',CAST(ul.intUserLocationID as CHAR),CAST(ul.intPrevUserLocationID as CHAR)) as movement,
 u.strUsername as username,
+ul.intUserID as intUserID,
 ul.locLatitude - ul.locPrevLatitude as deltaLatitude,
 ul.locLongitude - ul.locPrevLongitude as deltaLongitude,
 ROUND(ul.numDistance,2) as miles,

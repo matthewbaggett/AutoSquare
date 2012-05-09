@@ -9,9 +9,20 @@
 </thead>
 <tbody>
 	<?php foreach( $this->arr_locations as $location): ?>
+	<?php $location = $location->toArray(); ?>
 	<tr>
-		<?php foreach( $location->toArray() as $key => $column):?>
-		<td class="<?=strtolower(str_replace(" ","-",$key));?>"><?=$column;?></td>
+		<?php foreach( $location as $key => $column):?>
+		<?php if($key == 'movement'):?>
+			<td class="<?=strtolower(str_replace(" ","-",$key));?>">
+				<a href="/Me/View-Movements/left/<?=$location['intUserLocationID']?>/right/<?=$location['intPrevUserLocationID']?>">
+					<?=$column;?>
+				</a>
+			</td>
+		<?php else:?>
+			<td class="<?=strtolower(str_replace(" ","-",$key));?>">
+				<?=$column;?>
+			</td>
+		<?php endif;?>
 		<?php endforeach;?>
 	</tr>
 	<?php endforeach;?>

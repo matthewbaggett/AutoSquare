@@ -185,6 +185,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 							$previous->locLatitude,
 							$previous->locLongitude
 					);
+					
 					// Distances...
 					echo "   > {$location_without_speed->locLatitude}\t{$location_without_speed->locLongitude}\t{$location_without_speed->dtmTimestamp}\n";
 					echo "   > {$previous->locLatitude}\t{$previous->locLongitude}\t{$previous->dtmTimestamp}\n";
@@ -198,11 +199,16 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 					echo "   > min elapsed\t: {$min_elapsed}\n";
 					$location_without_speed->numDistance = $distance;
 					
+					// Bearings
+					$location_without_speed->numBearing = (rad2deg(atan2(sin(deg2rad($previous->locLongitude) - deg2rad($location_without_speed->locLongitude)) * cos(deg2rad($previous->locLatitude)), cos(deg2rad($location_without_speed->locLatitude)) * sin(deg2rad($previous->locLatitude)) - sin(deg2rad($location_without_speed->locLatitude)) * cos(deg2rad($previous->locLatitude)) * cos(deg2rad($previous->locLongitude) - deg2rad($location_without_speed->locLongitude)))) + 360) % 360;
+					
+					//Spit out results					
 					$location_without_speed->numSpeed = $distance / ($min_elapsed/60);
 					echo "   > RESULTS\n";
 					echo "     > it took {$sec_elapsed} sec / {$min_elapsed} min to cover \n";
 					echo "     > {$location_without_speed->numDistance} miles \n";
 					echo "     > @ {$location_without_speed->numSpeed} mph\n";
+					echo "     > Bearing {$location_without_speed->numBearing}\n";
 					
 					$location_without_speed->save();
 
