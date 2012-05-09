@@ -42,11 +42,11 @@ function initialize_overlay(){
         var route = response.routes[0];
 
         // For each route, display summary information.
-        for (var i = 0; i < route.legs.length; i++) {
-          var routeSegment = i + 1;
-          var line = "Route Segment: " + routeSegment + " - " + route.legs[i].start_address + " to " + route.legs[i].end_address + " - " + route.legs[i].distance.text;
-          alert(line);
-        }
+        //for (var i = 0; i < route.legs.length; i++) {
+        //  var routeSegment = i + 1;
+        //  var line = "Route Segment: " + routeSegment + " - " + route.legs[i].start_address + " to " + route.legs[i].end_address + " - " + route.legs[i].distance.text;
+        //  alert(line);
+        //}
       }
     });
 }
