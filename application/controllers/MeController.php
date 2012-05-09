@@ -32,7 +32,10 @@ class MeController extends Turbo_Controller_LoggedInAction
 		
 		$arr_locations_latlongs = array();
 		foreach($this->view->arr_locations as $obj_user_location){
-			$arr_locations_latlongs[] = "{$obj_user_location->locLatitude},{$obj_user_location->locLongitude}";
+			$arr_locations_latlongs[] = array(
+					"location" => "{$obj_user_location->locLatitude},{$obj_user_location->locLongitude}",
+					"stopover" => "true"
+				);
 		}
 		$this->view->assign("arr_locations_latlongs",$arr_locations_latlongs);
 
