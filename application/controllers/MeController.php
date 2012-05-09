@@ -17,6 +17,9 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$this->view->assign("foursquare_access_token", Turbo_Model_User::getCurrentUser()->settingGet("foursquare_access_token"));
 	}
 	
+	public function mapAction(){
+		
+	}
 }
 
 
