@@ -17,9 +17,11 @@ function initialize_map() {
 
 }
 function initialize_overlay(){
+	var origin = waypoints.shift();
+	var destination = waypoints.pop();
 	var request = {
-        origin: waypoints.shift()->location, 
-        destination: waypoints.pop()->location,
+        origin: origin['location'], 
+        destination: destination['location'],
         waypoints: waypoints,
         optimizeWaypoints: true,
         travelMode: google.maps.DirectionsTravelMode.DRIVING
