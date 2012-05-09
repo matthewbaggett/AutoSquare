@@ -200,7 +200,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 					$location_without_speed->save();
 
 					echo "\n";
-					sleep(2);
+					//sleep(2);
 					
 					//exit;
 				}
