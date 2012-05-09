@@ -55,8 +55,6 @@ function initialize_overlay(){
 	    	'		<li class="id">' + waypoints[i]['id'] + '</li>' +
 	    	'		<li class="time">' + waypoints[i]['time'] + '</li>' +
 	    	'		<li class="speed">' + waypoints[i]['speed'] + '</li>' +
-	    	'		<li class="delta deltalat">' + waypoints[i]['deltaLat'] + '</li>' +
-	    	'		<li class="delta deltalon">' + waypoints[i]['deltaLon'] + '</li>' +
 	    	'		<li class="bearing">' + waypoints[i]['bearing'] + '&deg;</li>' + 
 	    	'	</ul>' +
 	    	'</li>';
