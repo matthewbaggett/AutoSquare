@@ -1,5 +1,6 @@
 var directionDisplay;
 var directionsService = new google.maps.DirectionsService();
+var poly;
 var map;
 var manchester = new google.maps.LatLng(53.48, -2.24);
 
@@ -17,38 +18,32 @@ function initialize_map() {
 
 }
 function initialize_overlay(){
-	var origin = waypoints.shift();
-	var destination = waypoints.pop();
 	
-	var waypts = [];
+	var polyOptions = {
+		      strokeColor: '#000000',
+		      strokeOpacity: 1.0,
+		      strokeWeight: 3
+    }
+    poly = new google.maps.Polyline(polyOptions);
+    poly.setMap(map);
+
+    var path = poly.getPath();
 	
 	for(var i = 0; i < waypoints.length; i++){
-		waypts.push({
-			location: waypoints[i]['location'],
-			stopover: true
-		});
+		
+		// Because path is an MVCArray, we can simply append a new coordinate
+	    // and it will automatically appear
+	    path.push(waypoints[i]['location']);
+
+	    // Add a new marker at the new plotted point on the polyline.
+	    var marker = new google.maps.Marker({
+	      position: waypoints[i]['location'],
+	      title: '#' + path.getLength(),
+	      map: map
+	    });
 	}
 	
-	var request = {
-        origin: origin['location'], 
-        destination: destination['location'],
-        waypoints: waypts,
-        optimizeWaypoints: true,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-    directionsService.route(request, function(response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-        var route = response.routes[0];
-
-        // For each route, display summary information.
-        //for (var i = 0; i < route.legs.length; i++) {
-        //  var routeSegment = i + 1;
-        //  var line = "Route Segment: " + routeSegment + " - " + route.legs[i].start_address + " to " + route.legs[i].end_address + " - " + route.legs[i].distance.text;
-        //  alert(line);
-        //}
-      }
-    });
+	
 }
 $(document).ready(function(){
 	initialize_map();
