@@ -19,7 +19,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 	
 	public function mapAction(){
 		$this->view->headScript()->appendFile("http://maps.googleapis.com/maps/api/js?key=AIzaSyAeDI_T5MhRJtykibKEqszGZAxxGB3iaTg&sensor=true");
-		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/application-me-map.js");
+		
 		
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		
@@ -35,7 +35,9 @@ class MeController extends Turbo_Controller_LoggedInAction
 			$arr_locations_latlongs[] = "{$obj_user_location->locLatitude},{$obj_user_location->locLongitude}";
 		}
 		$this->view->assign("arr_locations_latlongs",$arr_locations_latlongs);
-		
+
+		$this->view->headScript()->appendScript("var waypoints = " . json_encode($this->view->arr_locations_latlongs));
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/application-me-map.js");
 	}
 }
 
