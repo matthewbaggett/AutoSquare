@@ -24,10 +24,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		
 		$sel = $tblUserLocations->select();
-		echo "<pre>";
-		var_dump( Turbo_Model_User::getCurrentUser());
-		echo "</pre>";
-		//$sel->where('intUserId = ?', Turbo_Model_User::getCurrentUser()->intUserId);
+		$sel->where('intUserID = ?', Turbo_Model_User::getCurrentUser()->intUserID);
 		$sel->order('dtmTimestamp DESC');
 		$sel->limit(100);
 		
