@@ -4,15 +4,18 @@ class Game_Core{
 	
 	static public $earth_radius = 3960.00; # in miles
 	
-	static public function distance_haversine($lat1, $lon1, $lat2, $lon2) {
+	static public function distance_haversine($lat_1, $lon_1, $lat_2, $lon_2) {
 		$delta_lat = $lat_2 - $lat_1 ;
 		$delta_lon = $lon_2 - $lon_1 ;
+		//echo "     > Lat: {$lat_1} & {$lat_2}\n";
+		//echo "     > Lon: {$lon_1} & {$lon_2}\n";
+		//echo "     > Deltas: Lat: {$delta_lat} Lon: {$delta_lon}\n";
 		$alpha    = $delta_lat/2;
 		$beta     = $delta_lon/2;
-		$a        = sin(deg2rad($alpha)) * sin(deg2rad($alpha)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin(deg2rad($beta)) * sin(deg2rad($beta)) ;
+		$a        = sin(deg2rad($alpha)) * sin(deg2rad($alpha)) + cos(deg2rad($lat_1)) * cos(deg2rad($lat_2)) * sin(deg2rad($beta)) * sin(deg2rad($beta)) ;
 		$c        = asin(min(1, sqrt($a)));
 		$distance = 2 * self::$earth_radius * $c;
-		$distance = round($distance, 4);
+		//$distance = round($distance, 4);
 	
 		return $distance;
 	}

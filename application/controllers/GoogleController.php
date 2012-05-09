@@ -164,20 +164,45 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 			$previous = null;
 			foreach($arr_uncalculated_speeds as $location_without_speed){
 				if($previous){
+					passthru("clear");
+					echo " > Processing distance between locations {$previous->intUserLocationID} & {$location_without_speed->intUserLocationID}\n";
+					if(date("Y-m-d",($previous->intTimestampMs/1000)) != date("Y-m-d",($location_without_speed->intTimestampMs/1000))){
+						echo "  > Skip, non-contiguous days.\n";
+						unset($previous);
+						continue;
+					}
+					
 					$distance = Game_Core::distance_haversine(
 							$location_without_speed->locLatitude,
 							$location_without_speed->locLongitude,
 							$previous->locLatitude,
 							$previous->locLongitude
 					);
-					$location_without_speed->numDistance = $distance;
+					// Distances...
+					echo "   > {$location_without_speed->locLatitude}\t{$location_without_speed->locLongitude}\t{$location_without_speed->dtmTimestamp}\n";
+					echo "   > {$previous->locLatitude}\t{$previous->locLongitude}\t{$previous->dtmTimestamp}\n";
+					echo "     > {$distance} miles\n";
+					
+					// Times...
 					$location_without_speed->intTimeSinceLastLocationMs = $location_without_speed->intTimestampMs - $previous->intTimestampMs;
-					$hours_between = (($location_without_speed->intTimeSinceLastLocationMs / 1000) / 60) / 60;
-					$min = $hours_between / 60;
-					$location_without_speed->numSpeed = $distance / $hours_between;
-					echo "Between {$previous->intUserLocationID} and {$location_without_speed->intUserLocationID}, it took {$min} min to cover {$location_without_speed->numDistance} @ {$location_without_speed->numSpeed}\n";
+					echo "   > ms elapsed\t: {$location_without_speed->intTimeSinceLastLocationMs}\n";
+					$sec_elapsed = $location_without_speed->intTimeSinceLastLocationMs/1000;
+					$min_elapsed = $sec_elapsed / 60;
+					echo "   > min elapsed\t: {$min_elapsed}\n";
+					$location_without_speed->numDistance = $distance;
+					
+					$location_without_speed->numSpeed = $distance / ($min_elapsed/60);
+					echo "   > RESULTS\n";
+					echo "     > it took {$sec_elapsed} sec / {$min_elapsed} min to cover \n";
+					echo "     > {$location_without_speed->numDistance} miles \n";
+					echo "     > @ {$location_without_speed->numSpeed} mph\n";
 					
 					$location_without_speed->save();
+
+					echo "\n";
+					sleep(2);
+					
+					//exit;
 				}
 				$previous = $location_without_speed;
 			}
