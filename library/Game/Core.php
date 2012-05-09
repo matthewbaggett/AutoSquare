@@ -38,6 +38,7 @@ class Game_Core{
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		foreach($tblUserLocations->get_unchecked_locations_for_user($this->user) as $user_location){
 			$arr_achievements_to_award = $this->_check_for_achievements_for_userlocation($user_location);
+			
 			$this->user->award_locations($arr_achievements_to_award);
 		}
 	}
