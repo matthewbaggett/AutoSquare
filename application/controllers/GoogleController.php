@@ -142,7 +142,10 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 				foreach($this->view->achievements as $achievement){
 					echo "{$achievement->strAchievementName}!\n";
 				}
+			}else{
+				echo " No achievements.\n";
 			}
+			echo "\n";
 		}
 		exit;
 	}
