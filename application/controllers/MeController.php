@@ -27,7 +27,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		echo "<pre>";
 		var_dump( Turbo_Model_User::getCurrentUser());
 		echo "</pre>";
-		$sel->where('intUserId = ?', Turbo_Model_User::getCurrentUser()->intUserId);
+		//$sel->where('intUserId = ?', Turbo_Model_User::getCurrentUser()->intUserId);
 		$sel->order('dtmTimestamp DESC');
 		$sel->limit(100);
 		
