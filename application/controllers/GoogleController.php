@@ -208,6 +208,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 				$previous = $location_without_speed;
 			}
 		}
+		exit;
 	}
 	
 	
