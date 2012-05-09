@@ -19,10 +19,20 @@ function initialize_map() {
 function initialize_overlay(){
 	var origin = waypoints.shift();
 	var destination = waypoints.pop();
+	
+	var waypts = [];
+	
+	for(var i = 0; i < waypoints.length; i++){
+		waypts.push({
+			location: waypoints[i]['location'],
+			stopover: true
+		});
+	}
+	
 	var request = {
         origin: origin['location'], 
         destination: destination['location'],
-        waypoints: waypoints,
+        waypoints: waypts,
         optimizeWaypoints: true,
         travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
