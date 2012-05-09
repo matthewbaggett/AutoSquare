@@ -45,6 +45,19 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$this->view->headScript()->appendScript("var waypoints = " . json_encode($this->view->arr_locations_latlongs));
 		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/application-me-map.js");
 	}
+	
+	public function dataAction(){
+		$tblUserLocations = new Game_Model_DbTable_UserLocations();
+		$sel = $tblUserLocations->select()->setIntegrityCheck(false);
+		$sel->from('viewUserLocations');
+		$sel->where('intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
+		$sel->limit(100);
+		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
+		
+		
+		
+		
+	}
 }
 
 
