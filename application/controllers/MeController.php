@@ -26,7 +26,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel = $tblUserLocations->select();
 		$sel->where('intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
 		$sel->order('dtmTimestamp DESC');
-		$sel->limit(100);
+		$sel->limit(10000);
 		
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
@@ -34,7 +34,10 @@ class MeController extends Turbo_Controller_LoggedInAction
 		foreach($this->view->arr_locations as $obj_user_location){
 			$arr_locations_latlongs[] = array(
 					"location" => "{$obj_user_location->locLatitude},{$obj_user_location->locLongitude}",
-					"stopover" => "true"
+					"lat" => $obj_user_location->locLatitude,
+					"lng" => $obj_user_location->locLongitude,
+					"stopover" => "true",
+					"title" => isset($obj_user_location->intSpeed)?"{$obj_user_location->dtmTimestamp} @ {$obj_user_location->intSpeed}":$obj_user_location->dtmTimestamp
 				);
 		}
 		$this->view->assign("arr_locations_latlongs",$arr_locations_latlongs);

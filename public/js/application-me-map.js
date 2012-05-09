@@ -33,13 +33,14 @@ function initialize_overlay(){
 		
 		// Because path is an MVCArray, we can simply append a new coordinate
 	    // and it will automatically appear
-		console.log(waypoints[i]);
-	    path.push(waypoints[i]['location']);
+		//console.log(waypoints[i]['location']);
+		var latlng = new google.maps.LatLng(waypoints[i]['lat'], waypoints[i]['lng']);
+	    path.push(latlng);
 
 	    // Add a new marker at the new plotted point on the polyline.
 	    var marker = new google.maps.Marker({
-	      position: waypoints[i]['location'],
-	      title: '#' + path.getLength(),
+	      position: latlng,
+	      title: waypoints[i]['title'],
 	      map: map
 	    });
 	}

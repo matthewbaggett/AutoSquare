@@ -150,6 +150,40 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		exit;
 	}
 	
+	public function cronSpeedCalcAction(){
+		$tblUsers = new Turbo_Model_DbTable_Users();
+		$arr_users = $tblUsers->fetchAll();
+		echo "Processing " . count($arr_users) . " users.\n";
+		foreach($arr_users as $user){
+			$tblUserLocations = new Game_Model_DbTable_UserLocations();
+			$sel = $tblUserLocations->select();
+			$sel->where("intUserID = ?", $user->intUserID);
+			$sel->where('numSpeed IS NULL');
+			$sel->order("dtmTimestamp ASC");
+			$arr_uncalculated_speeds = $tblUserLocations->fetchAll($sel);
+			$previous = null;
+			foreach($arr_uncalculated_speeds as $location_without_speed){
+				if($previous){
+					$distance = Game_Core::distance_haversine(
+							$location_without_speed->locLatitude,
+							$location_without_speed->locLongitude,
+							$previous->locLatitude,
+							$previous->locLongitude
+					);
+					$location_without_speed->numMiles = $distance;
+					$location_without_speed->intTimeSinceLastLocationMs = $location_without_speed->intTimestampMs - $previous->intTimestampMs;
+					$hours_between = (($location_without_speed->intTimeSinceLastLocationMs / 1000) / 60) / 60;
+					$min = $hours_between / 60;
+					$location_without_speed->numSpeed = $distance / $hours_between;
+					echo "Between {$previous->intUserLocationID} and {$location_without_speed->intUserLocationID}, it took {$min} min to cover {$location_without_speed->numMiles} @ {$location_without_speed->numSpeed}\n";
+					
+					$location_without_speed->save();
+				}
+				$previous = $location_without_speed;
+			}
+		}
+	}
+	
 	
 }
 
