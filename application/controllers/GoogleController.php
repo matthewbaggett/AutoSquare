@@ -170,12 +170,12 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 							$previous->locLatitude,
 							$previous->locLongitude
 					);
-					$location_without_speed->numMiles = $distance;
+					$location_without_speed->numDistance = $distance;
 					$location_without_speed->intTimeSinceLastLocationMs = $location_without_speed->intTimestampMs - $previous->intTimestampMs;
 					$hours_between = (($location_without_speed->intTimeSinceLastLocationMs / 1000) / 60) / 60;
 					$min = $hours_between / 60;
 					$location_without_speed->numSpeed = $distance / $hours_between;
-					echo "Between {$previous->intUserLocationID} and {$location_without_speed->intUserLocationID}, it took {$min} min to cover {$location_without_speed->numMiles} @ {$location_without_speed->numSpeed}\n";
+					echo "Between {$previous->intUserLocationID} and {$location_without_speed->intUserLocationID}, it took {$min} min to cover {$location_without_speed->numDistance} @ {$location_without_speed->numSpeed}\n";
 					
 					$location_without_speed->save();
 				}
