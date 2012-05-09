@@ -167,6 +167,12 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 				if($previous){
 					passthru("clear");
 					echo " > Processing distance between locations {$previous->intUserLocationID} & {$location_without_speed->intUserLocationID}\n";
+					
+					//Record what we're comparing with..
+					$location_without_speed->intPrevUserLocationID = $previous->intUserLocationID;
+					$location_without_speed->locPrevLatitude = $previous->locLatitude;
+					$location_without_speed->locPrevLongitude = $previous->locLongitude;
+					
 					if(date("Y-m-d",($previous->intTimestampMs/1000)) != date("Y-m-d",($location_without_speed->intTimestampMs/1000))){
 						echo "  > Skip, non-contiguous days.\n";
 						unset($previous);
