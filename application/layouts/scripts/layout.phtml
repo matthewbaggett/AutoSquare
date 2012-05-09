@@ -20,7 +20,6 @@ $this->headScript()
 	->appendFile($this->baseUrl() . "/js/bootstrap-carousel.js")
 	->appendFile($this->baseUrl() . "/js/bootstrap-typeahead.js")
 	->appendFile($this->baseUrl() . "/js/application.js")
-	->appendFile($this->baseUrl() . "/js/lolwut.js")
 	;
 
 echo $this->doctype(); ?>
@@ -42,6 +41,9 @@ $obj_zend_instance = Zend_Controller_Front::getInstance();
 $str_controller 	= strtolower($obj_zend_instance->getRequest()->getControllerName());
 $str_module 		= strtolower($obj_zend_instance->getRequest()->getModuleName());
 $str_action 		= strtolower($obj_zend_instance->getRequest()->getActionName());
+
+$this->headScript()->appendFile($this->baseUrl() . "/js/{$str_module}-{$str_action}.js");
+
 array_push($arr_body_classes, $str_action);
 array_push($arr_body_classes, $str_controller);
 array_push($arr_body_classes, $str_module);
