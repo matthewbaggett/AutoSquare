@@ -14,7 +14,9 @@ function initialize_map() {
 	directionsDisplay.setMap(map);
 	
 	alert("processing " . waypoints.length . " waypoints...");
-	
+
+}
+function initialize_overlay(){
 	var request = {
         origin: waypoints.shift, 
         destination: waypoints.pop,
