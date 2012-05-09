@@ -13,7 +13,9 @@ function initialize_map() {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	directionsDisplay.setMap(map);
 	
-	alert("processing " . waypoints.length . " waypoints...");
+	alert("processing " + waypoints.length + " waypoints...");
+	
+	initialize_overlay();
 
 }
 function initialize_overlay(){
