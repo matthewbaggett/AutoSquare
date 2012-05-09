@@ -37,7 +37,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 					"lat" => $obj_user_location->locLatitude,
 					"lng" => $obj_user_location->locLongitude,
 					"stopover" => "true",
-					"title" => isset($obj_user_location->intSpeed)?"{$obj_user_location->dtmTimestamp} @ {$obj_user_location->intSpeed}":$obj_user_location->dtmTimestamp
+					"title" => isset($obj_user_location->numSpeed)?"{$obj_user_location->dtmTimestamp} @ {$obj_user_location->numSpeed}":$obj_user_location->dtmTimestamp
 				);
 		}
 		$this->view->assign("arr_locations_latlongs",$arr_locations_latlongs);
