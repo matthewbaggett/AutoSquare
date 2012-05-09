@@ -1,0 +1,19 @@
+
+<table class="table table-bordered table-striped">
+<thead>
+	<tr>
+		<?php foreach( $this->arr_locations[0]->toArray() as $key => $column):?>
+		<th><?=$key;?></th>
+		<?php endforeach;?>
+	</tr>
+</thead>
+<tbody>
+	<?php foreach( $this->arr_locations as $location): ?>
+	<tr>
+		<?php foreach( $location->toArray() as $key => $column):?>
+		<td class="<?=strtolower(str_replace(" ","-",$key));?>"><?=$column;?></td>
+		<?php endforeach;?>
+	</tr>
+	<?php endforeach;?>
+</tbody>
+</table>
