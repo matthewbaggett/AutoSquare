@@ -42,8 +42,8 @@ $str_controller 	= strtolower($obj_zend_instance->getRequest()->getControllerNam
 $str_module 		= strtolower($obj_zend_instance->getRequest()->getModuleName());
 $str_action 		= strtolower($obj_zend_instance->getRequest()->getActionName());
 
-$custom_js_file = strtolower("application-{$str_module}-{$str_action}.js");
-$this->headScript()->appendFile($this->baseUrl() . "/js/" . $custom_js_file);
+//$custom_js_file = strtolower("application-{$str_module}-{$str_action}.js");
+//$this->headScript()->appendFile($this->baseUrl() . "/js/" . $custom_js_file);
 
 array_push($arr_body_classes, $str_action);
 array_push($arr_body_classes, $str_controller);
