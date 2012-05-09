@@ -26,7 +26,7 @@ function initialize_map() {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
         var route = response.routes[0];
-        var summaryPanel = document.getElementById("directions_panel");
+
         // For each route, display summary information.
         for (var i = 0; i < route.legs.length; i++) {
           var routeSegment = i + 1;
