@@ -6,6 +6,9 @@ RedirectMatch 301 /Image/Search/(.*) http://www.bunnehbutt.com/Search/index/tags
 RedirectMatch 301 /Images/View/(.*) http://www.bunnehbutt.com/View/Image/id/$1
 RedirectMatch 301 /Image/View/(.*) http://www.bunnehbutt.com/View/Image/id/$1
 
+RewriteCond %{HTTP_HOST} ^autosquare.turbocrms.com [NC]
+RewriteRule ^(.*)$ https://gamitu.de/$1 [L,R=301]
+
 RewriteCond %{HTTP_HOST} ^www.gamitu.de [NC]
 RewriteRule ^(.*)$ https://gamitu.de/$1 [L,R=301]
 
