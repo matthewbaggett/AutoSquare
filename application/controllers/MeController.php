@@ -87,9 +87,9 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->from('viewUserLocations','viewUserLocations.intUserLocationID');
 		$sel->join('tblUserLocations','viewUserLocations.intUserLocationID = tblUserLocations.intUserLocationID');
 		$sel->where('tblUserLocations.intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
-		$sel->where('intTimestampMs >= ?',$timestamps[0]);
-		$sel->where('intTimestampMs <= ?',$timestamps[1]);
-		$sel->order('dtmTimestamp DESC');
+		$sel->where('tblUserLocations.intTimestampMs >= ?',$timestamps[0]);
+		$sel->where('tblUserLocations.intTimestampMs <= ?',$timestamps[1]);
+		$sel->order('tblUserLocations.dtmTimestamp DESC');
 		
 		$array_of_ids = $tblUserLocations->fetchAll($sel);
 		
