@@ -1,13 +1,23 @@
 <h1>Showing movements</h1>
-<p>There are <?=count($this->arr_locations)?> movements displayed.</p>
+<p>
+	There are
+	<?=count($this->arr_locations)?>
+	movements displayed.
+</p>
 <section id="gridSystem">
-<div class="row show-grid map">
-    <div class="span8"><div id="map_canvas" style="width:770px; height:600px"></div></div>
-    <div class="span4 report">
-		<h2>Waypoints:</h2>
-		<ul></ul>
+	<div class="row row-fluid map">
+		<div class="span12">
+			<div class="row-fluid">
+				<div class="span8">
+					<div id="map_canvas" style="width: 100%; min-height: 300px"></div>
+				</div>
+				<div class="span4 report">
+					<h2>Waypoints:</h2>
+					<ul></ul>
+				</div>
+			</div>
+		</div>
 	</div>
-  </div>
-	
-	
-</selection>
+
+
+	</selection>
