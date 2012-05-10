@@ -12,7 +12,7 @@
 	<?php $location = $location->toArray(); ?>
 	<tr>
 		<?php foreach( $location as $key => $column):?>
-		<?php if($key == 'movement'):?>
+		<?php if(strtolower(str_replace(" ","-",$key)) == 'name-of-movement'):?>
 			<td class="<?=strtolower(str_replace(" ","-",$key));?>">
 				<a href="/Me/View-Movements/left/<?=$location['intUserLocationID']?>/right/<?=$location['intPrevUserLocationID']?>">
 					<?=$column;?>
