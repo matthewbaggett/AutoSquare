@@ -1,18 +1,22 @@
-<h2>My Keys</h2>
-<table>
-<tr>
-	<th>Service</th>
-	<th>Key</th>
-	<th>Action</th>
-</tr>
-<tr>
-	<td>Google Latitude</td>
-	<td><?=$this->google_latitude_access_token->access_token?></td>
-	<td><a href="/me/Delete-Key/google">Delete Key</a></td>
-</tr>
-<tr>
-	<td>Foursquare</td>
-	<td><?=$this->foursquare_access_token?></td>
-	<td><a href="/me/Delete-Key/foursquare">Delete Key</a></td>
-</tr>
+<h1>My Keys</h1>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Service</th>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Google Latitude</td>
+			<td><?=$this->google_latitude_access_token->access_token?></td>
+			<td><a href="/me/Delete-Key/google">Delete Key</a></td>
+		</tr>
+		<tr>
+			<td>Foursquare</td>
+			<td><?=$this->foursquare_access_token?></td>
+			<td><a href="/me/Delete-Key/foursquare">Delete Key</a></td>
+		</tr>
+	</tbody>
 </table>
