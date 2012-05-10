@@ -1,34 +1,72 @@
-<h2>Data sources</h2>
-<ul>
-	<li><a href="/Google/Add-Latitude">Google Latitude account.</a></li>
-</ul>
+<h1>My Profile</h1>
+<div class="row-fluid">
+	<div class="span12">
+		This is your profile.
+		<div class="row-fluid">
+			<div class="span6">
+				<h4>Data sources</h4>
+				<ul>
+					<li><a href="/Google/Add-Latitude">Google Latitude account.</a>
+					</li>
+				</ul>
+			</div>
+			<div class="span6">
+				<h4>Data sinks</h4>
+				<ul>
+					<li><a href="/Foursquare/Add-Foursquare">Add a Foursquare account.</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				You shouldn't need any of the following:
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<h4>Diagnostics</h4>
+				<ul>
+					<li><a href="/Me/Map">Show a map of my locations</a></li>
+					<li><a href="/Me/Data">Show my location data</a></li>
+					<li><a href="/Me/Show-Session">Show session data.</a></li>
+					<li><a href="/Me/Latitude-Get-Location">Get Latitude Location</a></li>
+					<?php if(Application_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")):?>
+					<li class="good">You <b>HAVE</b> got a Google Latitude key. <a
+						href="/Me/My-Keys">Manage your keys.</a>
+					</li>
+					<?php else:?>
+					<li class="bad">You <b>HAVE NOT</b> got a Google Latitude key. <a
+						href="/Google/Add-Latitude">Add one now!</a>
+					</li>
+					<?php endif;?>
 
-<h2>Data sinks</h2>
-<ul>
-	<li><a href="/Foursquare/Add-Foursquare">Add a Foursquare account.</a></li>
-</ul>
+					<?php if(Application_Model_User::getCurrentUser()->settingGet("foursquare_access_token")):?>
+					<li class="good">You <b>HAVE</b> got a Foursquare key. <a
+						href="/Me/My-Keys">Manage your keys.</a>
+					</li>
+					<?php else:?>
+					<li class="bad">You <b>HAVE NOT</b> got a Foursquare key. <a
+						href="/Foursquare/Add-Foursquare">Add one now!</a>
+					</li>
+					<?php endif;?>
+				</ul>
+			</div>
+			<div class="span6">
+				<h4>Backend</h4>
+				<ul>
+					<li><a href="/Google/Update-Location-Feed">Update Location Feed</a>
+					</li>
+					<li><a href="/Game/Check-For-Achievements">Check for Achievements</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
 
-<h2>Diagnostics</h2>
-<ul>
-	<li><a href="/Me/Map">Show a map of my locations</a></li>
-	<li><a href="/Me/Data">Show my location data</a></li>
-	<li><a href="/Me/Show-Session">Show session data.</a></li>
-	<li><a href="/Me/Latitude-Get-Location">Get Latitude Location</a></li>
-	<?php if(Application_Model_User::getCurrentUser()->settingGet("google_latitude_access_token")):?>
-		<li class="good">You <b>HAVE</b> got a Google Latitude key. <a href="/Me/My-Keys">Manage your keys.</a></li>
-	<?php else:?>
-		<li class="bad">You <b>HAVE NOT</b> got a Google Latitude key. <a href="/Google/Add-Latitude">Add one now!</a></li>
-	<?php endif;?>
-	
-	<?php if(Application_Model_User::getCurrentUser()->settingGet("foursquare_access_token")):?>
-		<li class="good">You <b>HAVE</b> got a Foursquare key.  <a href="/Me/My-Keys">Manage your keys.</a></li>
-	<?php else:?>
-		<li class="bad">You <b>HAVE NOT</b> got a Foursquare key. <a href="/Foursquare/Add-Foursquare">Add one now!</a></li>
-	<?php endif;?>
-</ul>
 
-<h2>Backend</h2>
-<ul>
-	<li><a href="/Google/Update-Location-Feed">Update Location Feed</a></li>
-	<li><a href="/Game/Check-For-Achievements">Check for Achievements</a></li>
-</ul>
+
+
+
+
