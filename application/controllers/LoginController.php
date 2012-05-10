@@ -1,6 +1,6 @@
 <?php
 
-class LoginController extends Turbo_Controller_Login
+class LoginController extends Game_Controller_Login
 {
 
 	protected function _login_redirect(){
