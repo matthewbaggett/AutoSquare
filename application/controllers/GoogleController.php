@@ -201,6 +201,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 					
 					// Bearings
 					$location_without_speed->numBearing = (rad2deg(atan2(sin(deg2rad($previous->locLongitude) - deg2rad($location_without_speed->locLongitude)) * cos(deg2rad($previous->locLatitude)), cos(deg2rad($location_without_speed->locLatitude)) * sin(deg2rad($previous->locLatitude)) - sin(deg2rad($location_without_speed->locLatitude)) * cos(deg2rad($previous->locLatitude)) * cos(deg2rad($previous->locLongitude) - deg2rad($location_without_speed->locLongitude)))) + 360) % 360;
+					$location_without_speed->numPrevBearing = $previous->numBearing;
 					
 					// Speed
 					$location_without_speed->numSpeed = $distance / ($min_elapsed/60);
