@@ -35,6 +35,9 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->where('dtmTimestamp >= ?', date("Y-m-d H:i:s",$start));
 		$sel->where('dtmTimestamp <= ?', date("Y-m-d H:i:s",$end));
 		$sel->limit(10000);
+		
+		echo "<h1>Query:</h1>";
+		echo $sel;
 				
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
