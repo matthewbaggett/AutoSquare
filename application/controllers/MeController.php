@@ -40,7 +40,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		echo "<pre>";
 		echo $sel;
 		echo "\n\n\nStart: {$start}\nEnd: {$end}\n";
-		echo "</pre>"
+		echo "</pre>";
 				
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
