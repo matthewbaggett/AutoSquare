@@ -21,10 +21,16 @@ class MeController extends Turbo_Controller_LoggedInAction
 	
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		
-		$sel = $tblUserLocations->select();
+		$sel = $tblUserLocations->select()->setIntegrityCheck(false);
+		$sel->from('viewUserLocations');
 		$sel->where('intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
 		$sel->order('dtmTimestamp DESC');
 		$sel->limit(10000);
+		
+		/*$sel = $tblUserLocations->select();
+		$sel->where('intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
+		$sel->order('dtmTimestamp DESC');
+		$sel->limit(10000);*/
 		
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
