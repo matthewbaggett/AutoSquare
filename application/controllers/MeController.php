@@ -37,7 +37,10 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->limit(10000);
 		
 		echo "<h1>Query:</h1>";
+		echo "<pre>";
 		echo $sel;
+		echo "\n\n\nStart: {$start}\nEnd: {$end}\n";
+		echo "</pre>"
 				
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
