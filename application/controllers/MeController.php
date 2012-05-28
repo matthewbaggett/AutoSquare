@@ -19,19 +19,22 @@ class MeController extends Turbo_Controller_LoggedInAction
 	
 	public function mapAction(){
 	
+		$start = $this->_request->getParam('start')?$this->_request->getParam('start'):date("Y-m-d_H:i:s",time() - $one_week_in_sec);
+		$end = $this->_request->getParam('start')?$this->_request->getParam('start'):date("Y-m-d_H:i:s",time());
+		
+		$start = strtotime($start);
+		$end = strtotime($end);
+		
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		
 		$sel = $tblUserLocations->select()->setIntegrityCheck(false);
 		$sel->from('viewUserLocations');
 		$sel->where('intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
 		$sel->order('dtmTimestamp DESC');
+		$sel->where('dtmTimestamp >= ?', date("Y-m-d H:i:s",$start));
+		$sel->where('dtmTimestamp <= ?', date("Y-m-d H:i:s",$end));
 		$sel->limit(10000);
-		
-		/*$sel = $tblUserLocations->select();
-		$sel->where('intUserID = ?', Application_Model_User::getCurrentUser()->intUserID);
-		$sel->order('dtmTimestamp DESC');
-		$sel->limit(10000);*/
-		
+				
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
 		$this->view->assign("arr_locations_latlongs",$this->_get_latlongs($this->view->arr_locations));
