@@ -23,6 +23,9 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$start = $this->_request->getParam('start')!=NULL?$this->_request->getParam('start'):date("Y-m-d_H:i:s",time() - $one_week_in_sec);
 		$end = $this->_request->getParam('end')!=NULL?$this->_request->getParam('end'):date("Y-m-d_H:i:s",time());
 		
+		$start = str_replace("_"," ",$start);
+		$end = str_replace("_"," ",$end);
+		
 		echo "<pre>";
 		echo "\n\n\nStart: {$start}\nEnd: {$end}\n";
 		echo "</pre>";
@@ -110,9 +113,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->where('tblUserLocations.intTimestampMs <= ?',$timestamps[1]);
 		$sel->order('tblUserLocations.dtmTimestamp DESC');
 		
-		$array_of_ids = $tblUserLocations->fetchAll($sel);
-		
-	
+		$array_of_ids = $tblUserLocations->fetchAll($sel);	
 		
 		$this->view->assign("arr_locations",$array_of_ids);
 		
