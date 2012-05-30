@@ -23,12 +23,11 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$start = $this->_request->getParam('start')!=NULL?$this->_request->getParam('start'):date("Y-m-d_H:i:s",time() - $one_week_in_sec);
 		$end = $this->_request->getParam('end')!=NULL?$this->_request->getParam('end'):date("Y-m-d_H:i:s",time());
 		
+		//Strip underscores from timestamps
 		$start = str_replace("_"," ",$start);
 		$end = str_replace("_"," ",$end);
 		
-		echo "<pre>";
-		echo "\n\n\nStart: {$start}\nEnd: {$end}\n";
-		echo "</pre>";
+		//Turn into a timestamp
 		$start = strtotime($start);
 		$end = strtotime($end);
 		
@@ -42,12 +41,9 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->where('dtmTimestamp <= ?', date("Y-m-d H:i:s",$end));
 		$sel->limit(10000);
 		
-		echo "<h1>Query:</h1>";
-		echo "<pre>";
-		echo $sel;
-		echo "\n\n\nStart: {$start}\nEnd: {$end}\n";
-		echo "</pre>";
-				
+		$this->view->assign('timestamp_start',	$start);
+		$this->view->assign('timestamp_end',	$end);
+		
 		$this->view->assign("arr_locations",$tblUserLocations->fetchAll($sel));
 		
 		$this->view->assign("arr_locations_latlongs",$this->_get_latlongs($this->view->arr_locations));
