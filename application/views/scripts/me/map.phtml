@@ -1,5 +1,34 @@
+
+	<script>
+	$(function() {
+		var dates = $( "#from, #to" ).datepicker({
+			defaultDate: "+1w",
+			changeMonth: true,
+			numberOfMonths: 3,
+			onSelect: function( selectedDate ) {
+				var option = this.id == "from" ? "minDate" : "maxDate",
+					instance = $( this ).data( "datepicker" ),
+					date = $.datepicker.parseDate(
+						instance.settings.dateFormat ||
+						$.datepicker._defaults.dateFormat,
+						selectedDate, instance.settings );
+				dates.not( this ).datepicker( "option", option, date );
+			}
+		});
+		dates.datepicker( "option", "dateFormat","YYYY-MM-DD");
+	});
+	</script>
+
+
+
+<div class="dates">
+
+<label for="from">From</label>
+<input type="text" id="from" name="from" value="<?=date("Y-m-d",$this->timestamp_start)?>"/>
+<label for="to">to</label>
+<input type="text" id="to" name="to" value="<?=date("Y-m-d",$this->timestamp_end)?>"/>
+
+</div><!-- End dates -->
+
+
 <div id="map_canvas" style="width:700px; height:600px"></div>
-<dl>
-<dt>Start:</dt><dd><?=date("Y-m-d H:i:s",$this->timestamp_start)?></dd>
-<dt>End:</dt><dd><?=date("Y-m-d H:i:s",$this->timestamp_end)?></dd>
-</dl>

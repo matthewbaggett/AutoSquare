@@ -39,7 +39,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->order('dtmTimestamp DESC');
 		$sel->where('dtmTimestamp >= ?', date("Y-m-d H:i:s",$start));
 		$sel->where('dtmTimestamp <= ?', date("Y-m-d H:i:s",$end));
-		$sel->limit(10000);
+		$sel->limit(100);
 		
 		$this->view->assign('timestamp_start',	$start);
 		$this->view->assign('timestamp_end',	$end);
