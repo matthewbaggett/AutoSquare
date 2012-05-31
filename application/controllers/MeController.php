@@ -20,12 +20,12 @@ class MeController extends Turbo_Controller_LoggedInAction
 	public function mapAction(){
 	
 		$one_week_in_sec = 604800;
-		$start = $this->_request->getParam('start')!=NULL?$this->_request->getParam('start'):date("Y-m-d_H:i:s",time() - $one_week_in_sec);
-		$end = $this->_request->getParam('end')!=NULL?$this->_request->getParam('end'):date("Y-m-d_H:i:s",time());
+		$start = $this->_request->getParam('start')!=NULL?$this->_request->getParam('start'):date("Y-m-d",time() - $one_week_in_sec);
+		$end = $this->_request->getParam('end')!=NULL?$this->_request->getParam('end'):date("Y-m-d",time());
 		
 		//Strip underscores from timestamps
-		$start = str_replace("_"," ",$start);
-		$end = str_replace("_"," ",$end);
+		$start = "{$start} 00:00:00";
+		$end = "{$end} 23:59:59";
 		
 		//Turn into a timestamp
 		$start = strtotime($start);
