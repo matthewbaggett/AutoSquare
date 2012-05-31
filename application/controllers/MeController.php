@@ -51,6 +51,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$this->view->headScript()->appendScript("var waypoints = " . json_encode($this->view->arr_locations_latlongs));
 		$this->view->headScript()->appendFile("http://maps.googleapis.com/maps/api/js?key=AIzaSyAeDI_T5MhRJtykibKEqszGZAxxGB3iaTg&sensor=true");
 		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/application-me-map.js");
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js");
 		$this->view->headLink()->appendStylesheet($this->view->baseUrl() . "/css/application-me-map.css");
 	}
 	
