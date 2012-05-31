@@ -74,7 +74,11 @@ $(document).ready(function(){
 	$('#from,#to').change(function(e){
 			var start = $('#from').val();
 			var end = $('#to').val();
-			window.location="/Me/Map/start/" + start + "/end/" + end;
+			if(end > start){
+				window.location="/Me/Map/start/" + start + "/end/" + end;
+			}else{
+				alert("End cannot be before start!");
+			}
 		});
 
 	initialize_map();
