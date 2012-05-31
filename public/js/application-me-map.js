@@ -70,7 +70,6 @@ function initialize_overlay(){
 }
 $(document).ready(function(){
 	$( "#from, #to" )
-		.datepicker()
 		.datepicker( "option", "dateFormat","yy-mm-dd");
 
 	initialize_map();
