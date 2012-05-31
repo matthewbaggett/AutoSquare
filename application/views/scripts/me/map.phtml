@@ -1,13 +1,17 @@
 
-
-<div class="dates">
-
-<label for="from">From</label>
-<input type="text" id="from" name="from" value="<?=date("Y-m-d",$this->timestamp_start)?>"/>
-<label for="to">to</label>
-<input type="text" id="to" name="to" value="<?=date("Y-m-d",$this->timestamp_end)?>"/>
-
-</div><!-- End dates -->
-
+<div class="row-fluid">
+	<div class="span12">
+		<div class="row-fluid dates">
+			<div class="span6">
+				<label for="from">From</label>
+				<input type="text" id="from" name="from" value="<?=date("Y-m-d",$this->timestamp_start)?>"/>
+			</div>
+			<div class="span6">
+				<label for="to">to</label>
+				<input type="text" id="to" name="to" value="<?=date("Y-m-d",$this->timestamp_end)?>"/>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="map_canvas" style="width:700px; height:600px"></div>
