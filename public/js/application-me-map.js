@@ -71,6 +71,11 @@ function initialize_overlay(){
 $(document).ready(function(){
 	$( "#from, #to" )
 		.datepicker({ dateFormat: "yy-mm-dd" });
+	$('#from,#to').change(function(e){
+			var start = $('#from').val();
+			var end = $('#to').val();
+			window.location="/Me/Map/start/" + start + "/end/" + end;
+		});
 
 	initialize_map();
 });
