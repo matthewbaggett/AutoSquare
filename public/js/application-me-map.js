@@ -70,7 +70,7 @@ function initialize_overlay(){
 }
 $(document).ready(function(){
 	$( "#from, #to" )
-		.datepicker( "option", "dateFormat","yy-mm-dd");
+		.datepicker({ dateFormat: "yy-mm-dd" });
 
 	initialize_map();
 });
