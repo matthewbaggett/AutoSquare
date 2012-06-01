@@ -34,6 +34,24 @@ function initialize_overlay(){
     
     var waypoint_list = '';
     
+    var trusted_marker_pinColor = "97ec7d";
+    var trusted_marker_pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + trusted_marker_pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    
+    var untrusted_marker_pinColor = "FE7569";
+    var untrusted_marker_pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + untrusted_marker_pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    
+    var marker_pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));
+    
+    
 	for(var i = 0; i < waypoints.length; i++){
 		
 		// Because path is an MVCArray, we can simply append a new coordinate
@@ -44,12 +62,21 @@ function initialize_overlay(){
 	    latlngbounds.extend(latlng);
 
 	    // Add a new marker at the new plotted point on the polyline.
+	    var pin_image;
+	    if(waypoints[i]['trusted'] == "Yes"){
+	    	pin_image = trusted_marker_pinImage;
+	    }else{
+	    	pin_image = untrusted_marker_pinImage;
+	    }
 	    var marker = new google.maps.Marker({
 	      position: latlng,
 	      title: waypoints[i]['title'],
-	      map: map
+	      map: map,
+	      icon: pin_image,
+	      shadow: marker_pinShadow
 	    });
-	   
+	    
+
 	    waypoint_list += '' +
 	    	'<li>' +
 	    	'	<ul id="waypoint-' + waypoints[i]['id'] + '">' +

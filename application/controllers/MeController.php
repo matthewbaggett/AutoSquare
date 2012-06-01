@@ -62,7 +62,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		// Inject location json
 		$this->view->headScript()->appendScript("var waypoints = " . json_encode($this->view->arr_locations_latlongs));
 		
-		// Add jQuery UI for the datepicker
+		// Add jQuery UI for the datepicker and such
 		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js");
 		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js");
 		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js");
@@ -89,6 +89,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 					'time' => date("H:i:s",strtotime($obj_user_location->dtmTimestamp)),
 					"speed" => isset($obj_user_location->numSpeed)?$obj_user_location->numSpeed.' mph':'',
 					"bearing" => $obj_user_location->numBearing,
+					'trusted' => $obj_user_location->trusted,
 					);
 		}
 		return $arr_locations_latlongs;
