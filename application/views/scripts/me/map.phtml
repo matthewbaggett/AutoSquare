@@ -4,11 +4,11 @@
 		<div class="row-fluid dates">
 			<div class="span3">
 				<label for="from">From</label>
-				<input type="text" id="from" name="from" value="<?=date("Y-m-d",$this->timestamp_start)?>"/>
+				<input type="text" id="from" name="from" value="<?=date("Y-m-d H:i:s",$this->timestamp_start)?>"/>
 			</div>
 			<div class="span3">
 				<label for="to">to</label>
-				<input type="text" id="to" name="to" value="<?=date("Y-m-d",$this->timestamp_end)?>"/>
+				<input type="text" id="to" name="to" value="<?=date("Y-m-d H:i:s",$this->timestamp_end)?>"/>
 			</div>
 			<div class="span6">
 			</div>
@@ -16,5 +16,27 @@
 	</div>
 </div>
 <div class="row-fluid">
+	<div class="span12">
+		<div class="row-fluid dates">
+			<div class="span6">
+				<input type="button" id="update_map" value="update"/>
+			</div>
+			<div class="span6">
+			</div>
+		</div>
+	</div>
+</div>
+<?php if(count($this->arr_locations) > 0):?>
+<div class="row-fluid">
 	<div class="span12" id="map_canvas" style="height:600px"></div>
+</div>
+<?php else:?>
+<div class="row-fluid">
+	<div class="span12">There isn't any data for that date range. :(</div>
+</div>
+<?php endif;?>
+<div class="row-fluid">
+	<div class="span12">
+		<pre class="prettyprint"><?php echo $this->SqlFormat($this->query_selection->__toString()); ?></pre>
+	</div>
 </div>

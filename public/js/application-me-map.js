@@ -2,9 +2,10 @@ var directionDisplay;
 var directionsService = new google.maps.DirectionsService();
 var poly;
 var map;
-var focus = new google.maps.LatLng(waypoints[0]['lat'],waypoints[0]['lng']);
+var focus;
 
 function initialize_map() {
+	focus = new google.maps.LatLng(waypoints[0]['lat'],waypoints[0]['lng']);
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	var myOptions = {
 		center: focus,
@@ -70,16 +71,22 @@ function initialize_overlay(){
 }
 $(document).ready(function(){
 	$( "#from, #to" )
-		.datepicker({ dateFormat: "yy-mm-dd" });
-	$('#from,#to').change(function(e){
-			var start = $('#from').val();
-			var end = $('#to').val();
-			if(end >= start){
-				window.location="/Me/Map/start/" + start + "/end/" + end;
-			}else{
-				alert("End cannot be before start!");
-			}
+		.datetimepicker({ 
+			dateFormat: "yy-mm-dd",
+			timeFormat: "hh:mm:ss",
+			seperator: " ",
+			minuiteGrid: 10,
 		});
-
-	initialize_map();
+	$('#update_map').click(function(e){
+		var start = $('#from').val();
+		var end = $('#to').val();
+		if(end >= start){
+			window.location="/Me/Map/start/" + start + "/end/" + end;
+		}else{
+			alert("End cannot be before start!");
+		}
+	});
+	if($('#map_canvas').length > 0){
+		initialize_map();
+	}
 });

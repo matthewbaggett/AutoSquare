@@ -20,12 +20,12 @@ class MeController extends Turbo_Controller_LoggedInAction
 	public function mapAction(){
 	
 		$one_week_in_sec = 604800;
-		$start = $this->_request->getParam('start')!=NULL?$this->_request->getParam('start'):date("Y-m-d",time() - $one_week_in_sec);
-		$end = $this->_request->getParam('end')!=NULL?$this->_request->getParam('end'):date("Y-m-d",time());
+		$start = $this->_request->getParam('start')!=NULL?$this->_request->getParam('start'):date("Y-m-d H:i:s",time() - $one_week_in_sec);
+		$end = $this->_request->getParam('end')!=NULL?$this->_request->getParam('end'):date("Y-m-d H:i:s",time());
 		
 		//Strip underscores from timestamps
-		$start = "{$start} 00:00:00";
-		$end = "{$end} 23:59:59";
+		//$start = "{$start} 00:00:00";
+		//$end = "{$end} 23:59:59";
 		
 		//Turn into a timestamp
 		$start = strtotime($start);
@@ -41,6 +41,8 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->where('dtmTimestamp <= ?', date("Y-m-d H:i:s",$end));
 		$sel->limit(10000);
 		
+		$this->view->assign('query_selection',$sel);
+		
 		$this->view->assign('timestamp_start',	$start);
 		$this->view->assign('timestamp_end',	$end);
 		
@@ -48,17 +50,28 @@ class MeController extends Turbo_Controller_LoggedInAction
 		
 		$this->view->assign("arr_locations_latlongs",$this->_get_latlongs($this->view->arr_locations));
 
-		
+
+		// Add some CSS style sheets...
 		$this->view->headLink()->appendStylesheet($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/development-bundle/themes/base/jquery.ui.all.css");
 		$this->view->headLink()->appendStylesheet($this->view->baseUrl() . "/css/application-me-map.css");
+		$this->view->headLink()->appendStylesheet($this->view->baseUrl() . "/css/sqlsyntax.css");
 		
+		// Inject google maps API libraries.. 
+		$this->view->headScript()->appendFile("//maps.googleapis.com/maps/api/js?key=AIzaSyAeDI_T5MhRJtykibKEqszGZAxxGB3iaTg&sensor=true");
+		
+		// Inject location json
 		$this->view->headScript()->appendScript("var waypoints = " . json_encode($this->view->arr_locations_latlongs));
-		$this->view->headScript()->appendFile("http://maps.googleapis.com/maps/api/js?key=AIzaSyAeDI_T5MhRJtykibKEqszGZAxxGB3iaTg&sensor=true");
-		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/application-me-map.js");
+		
+		// Add jQuery UI for the datepicker
 		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min.js");
-		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/ui/jquery.ui.core.js");
-		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/ui/jquery.ui.widget.js");
-		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/ui/jquery.ui.datepicker.js");
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js");
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js");
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.datepicker.js");
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/js/jquery-ui-timepicker-addon.js");
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/jquery-ui-1.8.20.custom/js/jquery-ui-sliderAccess.js");
+		
+		// Add application JS
+		$this->view->headScript()->appendFile($this->view->baseUrl() . "/js/application-me-map.js");
 		
 	}
 	
@@ -70,7 +83,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 					"lat" => $obj_user_location->locLatitude,
 					"lng" => $obj_user_location->locLongitude,
 					"stopover" => "true",
-					"title" =>  (isset($obj_user_location->numSpeed)?"{$obj_user_location->dtmTimestamp} @ {$obj_user_location->numSpeed} mph":$obj_user_location->dtmTimestamp),
+					"title" =>  (isset($obj_user_location->numSpeed)?"{$obj_user_location->dtmTimestamp} - {$obj_user_location->miles} miles @ {$obj_user_location->numSpeed} mph":$obj_user_location->dtmTimestamp),
 					'id' => $obj_user_location->intUserLocationID,
 					'date' => date("Y-M-D",strtotime($obj_user_location->dtmTimestamp)),
 					'time' => date("H:i:s",strtotime($obj_user_location->dtmTimestamp)),
@@ -97,6 +110,7 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$sel->order('dtmTimestamp DESC');
 		return $tblUserLocations->fetchRow($sel);
 	}
+	
 	public function viewMovementsAction(){
 		$arr_locations['left'] = $this->_request->getParam('left');
 		$arr_locations['right'] = $this->_request->getParam('right');
