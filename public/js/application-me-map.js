@@ -63,29 +63,36 @@ function initialize_overlay(){
 
 	    // Add a new marker at the new plotted point on the polyline.
 	    var pin_image;
+	    var render_this_marker = true;
 	    if(waypoints[i]['trusted'] == "Yes"){
 	    	pin_image = trusted_marker_pinImage;
-	    }else{
+	    }else if(waypoints[i]['trusted'] == "Suspect"){
 	    	pin_image = untrusted_marker_pinImage;
+	    }else{
+	    	render_this_marker = false;
 	    }
-	    var marker = new google.maps.Marker({
-	      position: latlng,
-	      title: waypoints[i]['title'],
-	      map: map,
-	      icon: pin_image,
-	      shadow: marker_pinShadow
-	    });
+	    if(render_this_marker){
+		    var marker = new google.maps.Marker({
+		      position: latlng,
+		      title: waypoints[i]['title'],
+		      map: map,
+		      icon: pin_image,
+		      shadow: marker_pinShadow
+		    });
+		    
+		    waypoint_list += '' +
+		    	'<li>' +
+		    	'	<ul id="waypoint-' + waypoints[i]['id'] + '">' +
+		    	'		<li class="id">' + waypoints[i]['id'] + '</li>' +
+		    	'		<li class="time">' + waypoints[i]['time'] + '</li>' +
+		    	'		<li class="speed">' + waypoints[i]['speed'] + '</li>' +
+		    	'		<li class="bearing">' + waypoints[i]['bearing'] + '&deg;</li>' + 
+		    	'	</ul>' +
+		    	'</li>';
+	    }
 	    
 
-	    waypoint_list += '' +
-	    	'<li>' +
-	    	'	<ul id="waypoint-' + waypoints[i]['id'] + '">' +
-	    	'		<li class="id">' + waypoints[i]['id'] + '</li>' +
-	    	'		<li class="time">' + waypoints[i]['time'] + '</li>' +
-	    	'		<li class="speed">' + waypoints[i]['speed'] + '</li>' +
-	    	'		<li class="bearing">' + waypoints[i]['bearing'] + '&deg;</li>' + 
-	    	'	</ul>' +
-	    	'</li>';
+	    
 	    
 	    
 	    

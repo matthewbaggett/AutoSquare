@@ -39,7 +39,7 @@ AND ul.intTimeSinceLastLocationMs > 0
 AND ul.numSpeed < 200
 
 -- Filter out waypoints that are.. going backwards?
--- AND ul.numSpeed > 0
+AND ul.numSpeed > 0
 
 -- Filter out waypoints where the points are > 1.1 miles apart.
 AND ul.numDistance < 1.1
