@@ -24,10 +24,16 @@ class Game_Core{
 		$this->user = $user;
 	}
 	
-	protected function _refine_distance_search($arr_rough_search){
+	protected function _refine_distance_search($arr_rough_search, $latitude, $longitude){
 		$arr_locations_in_radius = array();
 		foreach($arr_rough_search as $potential_location){
 			$distance = $this->distance_haversine($latitude, $longitude, $potential_location->locLatitude, $potential_location->locLongitude);
+			echo "  > Calcdist...\n";
+			echo "    > Latitude 1  : {$latitude}\n";
+			echo "    > Longitude 1 : {$longitude}\n";
+			echo "    > Latitude 2  : {$potential_location->locLatitude}\n";
+			echo "    > Longitude 2 : {$potential_location->locLongitude}\n";
+			echo "    > Distance: $distance\n";
 			if($distance <= $potential_location->intRadius){
 				$arr_locations_in_radius[$potential_location->strName] = $potential_location;
 			}
@@ -46,18 +52,41 @@ class Game_Core{
 		$select->where('locLongitude + (intRadius/(85*1000)) > ?', 	$user_location->locLongitude);
 		$arr_rough_search = $tblAchievementLocations->fetchAll($select);
 		
+		echo "\n";
+		echo "  > Rough search: ".count($arr_rough_search)." found\n";
+		
+		if(count($arr_rough_search) == 0){
+			return array();
+		}
+		
 		// loop over these rough results, and compute the distances:
-		$arr_locations_in_radius = $this->_refine_distance_search($arr_rough_search);
-			
+		$arr_locations_in_radius = $this->_refine_distance_search($arr_rough_search, $user_location->locLatitude, $user_location->locLongitude);
+		
+		echo "  > Fine search: ".count($arr_locations_in_radius)." found\n";
+		
 		return $arr_locations_in_radius;
 	}
 	
 	public function check_for_achievements(){
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
+		$arr_achievements_to_award = array();
 		foreach($tblUserLocations->get_unchecked_locations_for_user($this->user) as $user_location){
-			$arr_achievements_to_award = $this->_check_for_achievements_for_userlocation($user_location);
-			
-			$this->user->award_locations($arr_achievements_to_award);
+			echo "\rLocation: {$user_location->locLatitude}, {$user_location->locLongitude}";
+			$arr_new_achievements = $this->_check_for_achievements_for_userlocation($user_location);
+			$arr_achievements_to_award = array_merge($arr_achievements_to_award, (array) $arr_new_achievements);
+			$arr_checked_ids[] = $user_location->intUserLocationID;
 		}
+		$tblUserLocations->mark_checked($arr_checked_ids);
+		echo "\n";
+		
+		return $arr_achievements_to_award;
+	}
+	
+	public function award($user, $arr_award_locations){
+		foreach($arr_award_locations as $award_location){
+			Game_Model_DbTable_UserAchievements::add_location_award($user, $award_location);
+		}
+		
+		exit;
 	}
 }

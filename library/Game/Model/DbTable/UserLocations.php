@@ -6,6 +6,13 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     protected $_name = 'tblUserLocations';
 	//protected $_rowClass = 'Application_Model_User';
 
+    
+    public function mark_checked($arr_checked){
+    	$data = array( "bolChecked" => 1 );
+    	$where = $this->getAdapter()->quoteInto('intUserLocationID IN (?)', $arr_checked);
+    	$this->update($data, $where);
+    }
+    
     /**
      * Test to see if the users location was already reported.
      * @param Application_Model_User $user
@@ -47,9 +54,15 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
      * @return Zend_Db_Table_Rowset_Abstract
      */
     public function get_unchecked_locations_for_user(Application_Model_User $user){
-    	$select = $this->select(true);
+    	$select = $this->select()->setIntegrityCheck(false);
+    	$select->from('viewUserLocations');
     	$select->where('intUserID = ?',$user->intUserID);
-    	$select->where('bolChecked = ?', 0);
+    	$select->where('bolChecked = 0');
+    	$select->where('trusted = ?',"Yes");
+    	$select->where('dtmTimestamp >= ?','2012-06-02 00:00:00');
+    	$select->where('dtmTimestamp <= ?','2012-06-02 12:02:55');
+    	$select->limit(100);
+    	$select->order(array('locLatitude DESC', 'locLongitude DESC'));
     	return $this->fetchAll($select);
     }
 }

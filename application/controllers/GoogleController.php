@@ -115,7 +115,12 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 			$user = Application_Model_User::getCurrentUser();
 		}
 		$game_instance = new Game_Core($user);
+		echo "instance got\n";
 		$arr_new_achievements = $game_instance->check_for_achievements();
+		echo "Found ".count($arr_new_achievements)." new achievements!\n";
+		
+		$game_instance->award($user, $arr_new_achievements);
+		
 		$this->view->assign('achievements', $arr_new_achievements);
 	}
 	
