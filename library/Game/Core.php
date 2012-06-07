@@ -87,6 +87,5 @@ class Game_Core{
 			Game_Model_DbTable_UserAchievements::add_location_award($user, $award_location);
 		}
 		
-		exit;
 	}
 }

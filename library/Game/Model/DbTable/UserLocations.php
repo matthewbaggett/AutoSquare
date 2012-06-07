@@ -59,9 +59,9 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
     	$select->where('intUserID = ?',$user->intUserID);
     	$select->where('bolChecked = 0');
     	$select->where('trusted = ?',"Yes");
-    	$select->where('dtmTimestamp >= ?','2012-06-02 00:00:00');
-    	$select->where('dtmTimestamp <= ?','2012-06-02 12:02:55');
-    	$select->limit(100);
+    	//$select->where('dtmTimestamp >= ?','2012-06-02 00:00:00');
+    	//$select->where('dtmTimestamp <= ?','2012-06-02 12:02:55');
+    	$select->limit(5000);
     	$select->order(array('locLatitude DESC', 'locLongitude DESC'));
     	return $this->fetchAll($select);
     }
