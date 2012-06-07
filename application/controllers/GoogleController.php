@@ -121,7 +121,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		
 		$game_instance->award($user, $arr_new_achievements);
 		
-		$this->view->assign('achievements', $arr_new_achievements);
+		//$this->view->assign('achievements', $arr_new_achievements);
 		return $arr_new_achievements;
 	}
 	
@@ -148,8 +148,6 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 			$arr_new_achievements = array_filter($arr_new_achievements);
 			if($arr_new_achievements !== null){
 				foreach($arr_new_achievements as $achievement){
-					var_dump($achievement);
-					echo get_class($achievement)."\n";
 					echo "{$achievement->strAchievementName}!\n";
 				}
 			}else{

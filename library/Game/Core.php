@@ -79,6 +79,9 @@ class Game_Core{
 		$tblUserLocations->mark_checked($arr_checked_ids);
 		echo "\n";
 		
+		foreach($arr_achievements_to_award as $a){
+			echo get_class($a)."\n";
+		}
 		return $arr_achievements_to_award;
 	}
 	
