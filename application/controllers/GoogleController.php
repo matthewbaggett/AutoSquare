@@ -122,6 +122,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$game_instance->award($user, $arr_new_achievements);
 		
 		$this->view->assign('achievements', $arr_new_achievements);
+		return $arr_new_achievements;
 	}
 	
 	public function cronUpdateLocationFeedsAction(){
@@ -143,9 +144,10 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		echo "Processing " . count($arr_users) . " users.\n";
 		foreach($arr_users as $user){
 			echo " > {$user->strUsername}..\n";
-			$this->checkForAchievementsAction($user);
-			if($this->view->achievements !== null){
-				foreach($this->view->achievements as $achievement){
+			$arr_new_achievements = $this->checkForAchievementsAction($user);
+			$arr_new_achievements = array_filter($arr_new_achievements);
+			if($arr_new_achievements !== null){
+				foreach($arr_new_achievements as $achievement){
 					echo "{$achievement->strAchievementName}!\n";
 				}
 			}else{
