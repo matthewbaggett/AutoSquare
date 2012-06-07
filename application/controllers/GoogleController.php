@@ -148,6 +148,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 			$arr_new_achievements = array_filter($arr_new_achievements);
 			if($arr_new_achievements !== null){
 				foreach($arr_new_achievements as $achievement){
+					echo get_class($achievement)."\n";
 					echo "{$achievement->strAchievementName}!\n";
 				}
 			}else{
