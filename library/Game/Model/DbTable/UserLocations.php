@@ -4,7 +4,7 @@ class Game_Model_DbTable_UserLocations extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'tblUserLocations';
-	//protected $_rowClass = 'Application_Model_User';
+	protected $_rowClass = 'Game_Model_UserLocation';
 
     
     public function mark_checked($arr_checked){

@@ -4,7 +4,8 @@ class Game_Model_DbTable_UserAchievements extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'tblUserAchievements';
-	
+    protected $_rowClass = 'Game_Model_UserAchievement';
+    
     
     static public function has_award($user,$achievement){
     	$tblUserAchievements = new Game_Model_DbTable_UserAchievements();

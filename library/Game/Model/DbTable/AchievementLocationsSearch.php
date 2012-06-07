@@ -4,6 +4,8 @@ class Game_Model_DbTable_AchievementLocationsSearch extends Zend_Db_Table_Abstra
 {
 
 	protected $_name = 'viewAchievementLocations';
+	protected $_rowClass = 'Game_Model_AchievementLocation';
+	
 
 	private function distance_haversine($lat1, $lon1, $lat2, $lon2) {
 		return Game_Core::distance_haversine($lat1, $lon1, $lat2, $lon2);
