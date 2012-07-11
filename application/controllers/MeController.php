@@ -4,7 +4,16 @@ class MeController extends Turbo_Controller_LoggedInAction
 {
 	
 	public function indexAction(){
+		$tblUserSettings = new Turbo_Model_DbTable_UserSettings();
 		
+		// Get user settings
+		$select = $tblUserSettings->select(true);
+		$select->where("intUserID = ?", Application_Model_User::getCurrentUser()->intUserID);
+		
+		//For each setting, get its type
+		$arrSettings = $tblUserSettings->fetchAll($select);
+		
+		$this->view->assign('arrSettings', $arrSettings);
 	}
 	
 	public function showSessionAction(){
@@ -144,6 +153,8 @@ class MeController extends Turbo_Controller_LoggedInAction
 		$this->view->headLink()->appendStylesheet($this->view->baseUrl() . "/css/application-me-map.css");
 		
 	}
+	
+	
 }
 
 
