@@ -28,7 +28,7 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 		var_dump($venueHistory);
 		
 		foreach($venueHistory['response']['venues']['items'] as $key => $venue){
-			echo " > {$key}\n";
+			
 			$tblFoursquareKnownLocations = new Game_Model_DbTable_FoursquareKnownLocations();
 			$sel = $tblFoursquareKnownLocations->select(true);
 			$sel->where('intUserID', Game_Model_User::getCurrentUser()->intUserID);
@@ -50,6 +50,7 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 			);
 			
 			if(count($matches) > 0){
+				echo " > {$key} update {$venue['venue']['name']}\n";
 				$tblFoursquareKnownLocations->update(
 						$data, 
 						array(
@@ -58,6 +59,7 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 						)
 				);
 			}else{
+				echo " > {$key} insert {$venue['venue']['name']}\n";
 				$tblFoursquareKnownLocations->insert($data);
 			}
 		}
