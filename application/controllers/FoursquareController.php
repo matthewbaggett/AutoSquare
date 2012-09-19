@@ -25,15 +25,16 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 		$users = eden('foursquare')->users(Application_Model_User::getCurrentUser()->settingGet('foursquare_access_token'));
 		$venueHistory = $users->getVenuehistory();
 		echo "<pre>";
-		var_dump($venueHistory);
+		//var_dump($venueHistory);
 		
 		foreach($venueHistory['response']['venues']['items'] as $key => $venue){
 			
 			$tblFoursquareKnownLocations = new Game_Model_DbTable_FoursquareKnownLocations();
-			$sel = $tblFoursquareKnownLocations->select(true);
-			$sel->where('intUserID', Game_Model_User::getCurrentUser()->intUserID);
-			$sel->where('strFoursquareID', $venue['venue']['id']);
-			$matches = $tblFoursquareKnownLocations->fetchAll($sel);
+			$selection = array(
+								"strFoursquareID = '{$venue['venue']['id']}'", 
+								"intUserID = ".Game_Model_User::getCurrentUser()->intUserID
+						);
+			$matches = $tblFoursquareKnownLocations->fetchAll($selection);
 			
 			$data = array(
 					'intUserID'				=> Game_Model_User::getCurrentUser()->intUserID,
@@ -53,10 +54,7 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 				echo " > {$key} update {$venue['venue']['name']}\n";
 				$tblFoursquareKnownLocations->update(
 						$data, 
-						array(
-								"strFoursquareID = '{$venue['venue']['id']}'", 
-								"intUserID = ".Game_Model_User::getCurrentUser()->intUserID
-						)
+						$selection
 				);
 			}else{
 				echo " > {$key} insert {$venue['venue']['name']}\n";
