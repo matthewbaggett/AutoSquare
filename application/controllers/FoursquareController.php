@@ -6,7 +6,7 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 {
 	private $client_id = 'A0E0UFLSVUV45SMMCD0O0J4OIO0I3OFJJB5U3SZ0IFSVNYJC';
 	private $client_secret = '2UZWRFA2WL2UK4N1LCF3SBLPLNF0IBMI4BGD04S1QWC0VNTA';
-	private $redirect_uri = 'https://gamitu.de/Foursquare/add-foursquare-callback';
+	private $redirect_uri = 'http://gamitu.de/Foursquare/add-foursquare-callback';
 	private $auth;
 
 	public function init(){
