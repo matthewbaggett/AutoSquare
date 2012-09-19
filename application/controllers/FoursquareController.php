@@ -37,7 +37,8 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 	
 	public function addFoursquareCallbackAction(){
 		$access = $this->auth->getAccess($_GET['code']);
-		
+		var_dump($access);
+		exit;
 		Application_Model_User::getCurrentUser()->settingSet('foursquare_access_token',$access['access token']);
 		
 		$this->_update_visited_locations();
