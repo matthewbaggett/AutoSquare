@@ -64,14 +64,16 @@
 			<div class="span6">
 				<h4>Settings</h4>
 				<dl>
-					<?php foreach((array) $this->arrSettings as $setting): ?>
+					<?php if(count($this->arrSettings)):?>
+						<?php foreach($this->arrSettings as $setting): ?>
 							<dt><?=$setting->strKey?></dt>
-						<?php if($setting->getType() == 'string'): ?>
-							<dd><input type="text" value="<?=unserialize($setting->strValue)?>"/></dd>
-						<?php else: ?>
-							<dd><pre><?=print_r(unserialize($setting->strValue))?></pre></dd>
-						<?php endif; ?>
-					<?php endforeach; ?>
+							<?php if($setting->getType() == 'string'): ?>
+								<dd><input type="text" value="<?=unserialize($setting->strValue)?>"/></dd>
+							<?php else: ?>
+								<dd><pre><?=print_r(unserialize($setting->strValue))?></pre></dd>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif;?>
 				</dl>
 			</div>
 		</div>
