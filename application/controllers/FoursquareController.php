@@ -19,14 +19,38 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 	
 	private function _set_up_foursquare_api(){
 		$this->_include_foursquare_api();
-		
 	}
 	
 	private function _update_visited_locations(){
 		$users = eden('foursquare')->users(Application_Model_User::getCurrentUser()->settingGet('foursquare_access_token'));
 		$venueHistory = $users->getVenuehistory();
-		var_dump($venueHistory);
-		exit;
+		foreach($venueHistory['response']['venues']['items'] as $key => $venue){
+			$tblFoursquareKnownLocations = new Game_Model_DbTable_FoursquareKnownLocations();
+			$sel = $tblFoursquareKnownLocations->select(true);
+			$sel->where('intUserID', Game_Model_User::getCurrentUser()->intUserID);
+			$sel->where('strFoursquareID', $venue['venue']['id']);
+			$matches = $tblFoursquareKnownLocations->fetchAll($sel);
+			
+			$data = array(
+					'intUserID'				=> Game_Model_User::getCurrentUser()->intUserID,
+					'strFoursquareID'		=> $venue['venue']['id'],
+					'strName' 				=> $venue['venue']['name'],
+					'strLocationAddress' 	=> $venue['venue']['location']['address'],
+					'locLocationLatitude' 	=> $venue['venue']['location']['lat'],
+					'locLocationLongitude' 	=> $venue['venue']['location']['lng'],
+					'strLocationPostcode' 	=> $venue['venue']['location']['postalCode'],
+					'strLocationCity' 		=> $venue['venue']['location']['city'],
+					'strLocationState' 		=> $venue['venue']['location']['state'],
+					'strLocationCountry' 	=> $venue['venue']['location']['country'],
+					'intVisits' 			=> $venue['beenHere'],
+			);
+			
+			if(count($matches) > 0){
+				$tblFoursquareKnownLocations->update($data, $sel);
+			}else{
+				$tblFoursquareKnownLocations->insert($data);
+			}
+		}
 	}
 	
 	public function addFoursquareAction(){
@@ -49,7 +73,6 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 	
 	public function updateFoursquareHistoryAction(){
 		$this->_update_visited_locations();
-		exit;
 	}
 	
 }
