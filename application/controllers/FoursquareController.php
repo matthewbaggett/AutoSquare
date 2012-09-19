@@ -26,8 +26,9 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 		$venueHistory = $users->getVenuehistory();
 		echo "<pre>";
 		var_dump($venueHistory);
-		echo "</pre>";
+		
 		foreach($venueHistory['response']['venues']['items'] as $key => $venue){
+			echo " > {$key}\n";
 			$tblFoursquareKnownLocations = new Game_Model_DbTable_FoursquareKnownLocations();
 			$sel = $tblFoursquareKnownLocations->select(true);
 			$sel->where('intUserID', Game_Model_User::getCurrentUser()->intUserID);
@@ -60,6 +61,7 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 				$tblFoursquareKnownLocations->insert($data);
 			}
 		}
+		exit;
 	}
 	
 	public function addFoursquareAction(){
