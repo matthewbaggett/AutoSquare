@@ -64,7 +64,7 @@
 			<div class="span6">
 				<h4>Settings</h4>
 				<dl>
-					<?php foreach($this->arrSettings as $setting): ?>
+					<?php foreach((array) $this->arrSettings as $setting): ?>
 							<dt><?=$setting->strKey?></dt>
 						<?php if($setting->getType() == 'string'): ?>
 							<dd><input type="text" value="<?=unserialize($setting->strValue)?>"/></dd>
