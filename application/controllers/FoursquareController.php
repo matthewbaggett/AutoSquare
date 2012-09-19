@@ -24,7 +24,9 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 	private function _update_visited_locations(){
 		$users = eden('foursquare')->users(Application_Model_User::getCurrentUser()->settingGet('foursquare_access_token'));
 		$venueHistory = $users->getVenuehistory();
-		krumo($venueHistory);
+		echo "<pre>";
+		var_dump($venueHistory);
+		echo "</pre>";
 		foreach($venueHistory['response']['venues']['items'] as $key => $venue){
 			$tblFoursquareKnownLocations = new Game_Model_DbTable_FoursquareKnownLocations();
 			$sel = $tblFoursquareKnownLocations->select(true);
