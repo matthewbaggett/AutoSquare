@@ -24,8 +24,6 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 	private function _update_visited_locations(){
 		$users = eden('foursquare')->users(Application_Model_User::getCurrentUser()->settingGet('foursquare_access_token'));
 		$venueHistory = $users->getVenuehistory();
-		echo "<pre>";
-		//var_dump($venueHistory);
 		
 		foreach($venueHistory['response']['venues']['items'] as $key => $venue){
 			
@@ -51,17 +49,11 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 			);
 			
 			if(count($matches) > 0){
-				echo " > {$key} update {$venue['venue']['name']}\n";
-				$tblFoursquareKnownLocations->update(
-						$data, 
-						$selection
-				);
+				$tblFoursquareKnownLocations->update( $data, $selection );
 			}else{
-				echo " > {$key} insert {$venue['venue']['name']}\n";
-				$tblFoursquareKnownLocations->insert($data);
+				$tblFoursquareKnownLocations->insert( $data );
 			}
 		}
-		exit;
 	}
 	
 	public function addFoursquareAction(){
