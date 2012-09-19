@@ -46,7 +46,13 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 			);
 			
 			if(count($matches) > 0){
-				$tblFoursquareKnownLocations->update($data, "strFoursquareID = '{$venue['venue']['id']}'");
+				$tblFoursquareKnownLocations->update(
+						$data, 
+						array(
+								"strFoursquareID = '{$venue['venue']['id']}'", 
+								"intUserID = ".Game_Model_User::getCurrentUser()->intUserID
+						)
+				);
 			}else{
 				$tblFoursquareKnownLocations->insert($data);
 			}
