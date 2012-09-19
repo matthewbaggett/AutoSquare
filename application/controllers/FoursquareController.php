@@ -22,6 +22,13 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 		
 	}
 	
+	private function _update_visited_locations(){
+		$users = eden('foursquare')->users(Application_Model_User::getCurrentUser()->settingGet('foursquare_access_token'));
+		$venueHistory = $users->getVenuehistory();
+		var_dump($venueHistory);
+		exit;
+	}
+	
 	public function addFoursquareAction(){
 		$login = $this->auth->getLoginUrl();
 		header("Location: $login");
@@ -33,11 +40,17 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 		
 		Application_Model_User::getCurrentUser()->settingSet('foursquare_access_token',$access['access token']);
 		
+		$this->_update_visited_locations();
+		
 		$this->_helper->redirector('add-foursquare-complete');
 	}
 
 	public function addFoursquareCompleteAction(){}
 	
+	public function updateFoursquareHistoryAction(){
+		$this->_update_visited_locations();
+		exit;
+	}
 	
 }
 
