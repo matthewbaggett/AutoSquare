@@ -40,7 +40,9 @@ class Game_Core{
 		}
 		return $arr_locations_in_radius;
 	}
-	
+	protected function _check_for_checkin_for_userlocation($user_location){
+		// TODO
+	}
 	protected function _check_for_achievements_for_userlocation($user_location){
 
 		$tblAchievementLocations = new Game_Model_DbTable_AchievementLocations();
@@ -66,12 +68,15 @@ class Game_Core{
 		
 		return $arr_locations_in_radius;
 	}
-	
+	public function check_for_checkins(){
+		
+	}
 	public function check_for_achievements(){
 		$tblUserLocations = new Game_Model_DbTable_UserLocations();
 		$arr_achievements_to_award = array();
 		foreach($tblUserLocations->get_unchecked_locations_for_user($this->user) as $user_location){
 			echo "\rLocation: {$user_location->locLatitude}, {$user_location->locLongitude}";
+			$this->_check_for_checkin_for_userlocation($user_location);
 			$arr_new_achievements = $this->_check_for_achievements_for_userlocation($user_location);
 			$arr_achievements_to_award = array_merge($arr_achievements_to_award, (array) $arr_new_achievements);
 			$arr_checked_ids[] = $user_location->intUserLocationID;

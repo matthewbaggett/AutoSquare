@@ -109,7 +109,13 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		$this->view->assign('count_seen', count($recent_locations));
 		$this->view->assign('count_new', $count_new);
 	}
-	
+	public function checkForCheckinsAction($user = null){
+		if(!$user){
+			$user = Application_Model_User::getCurrentUser();
+		}
+		$game_instance = new Game_Core($user);
+		$game_instance->check_for_checkins();
+	}
 	public function checkForAchievementsAction($user = null){
 		if(!$user){
 			$user = Application_Model_User::getCurrentUser();
@@ -144,6 +150,7 @@ class GoogleController extends Turbo_Controller_LoggedInAction
 		echo "Processing " . count($arr_users) . " users.\n";
 		foreach($arr_users as $user){
 			echo " > {$user->strUsername}..\n";
+			$this->checkForCheckinsAction($user);
 			$arr_new_achievements = $this->checkForAchievementsAction($user);
 			$arr_new_achievements = array_filter($arr_new_achievements);
 			if($arr_new_achievements !== null){
