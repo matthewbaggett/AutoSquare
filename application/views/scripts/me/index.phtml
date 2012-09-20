@@ -66,11 +66,7 @@
 					<?php if(count($this->arrSettings)):?>
 						<?php foreach($this->arrSettings as $setting): ?>
 							<dt><?=$setting->strKey?></dt>
-							<?php if($setting->getType() == 'string'): ?>
-								<dd><input type="text" value="<?=unserialize($setting->strValue)?>"/></dd>
-							<?php else: ?>
-								<dd><pre><?=print_r(unserialize($setting->strValue))?></pre></dd>
-							<?php endif; ?>
+							<dd><pre><?=print_r($setting->strValue)?></pre></dd>
 						<?php endforeach; ?>
 					<?php endif;?>
 				</dl>
