@@ -76,7 +76,8 @@ class FoursquareController extends Turbo_Controller_LoggedInAction
 	
 	public function updateFoursquareHistoryAction(){
 		$this->_update_visited_locations();
-		$this->_helper->redirector('/me');
+		header("Location: /me");
+		exit;
 	}
 	
 }
